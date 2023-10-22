@@ -1,0 +1,159 @@
+.about {
+	padding: 119px 70px;
+	color: white;
+	max-width: 1280px;
+	margin: 0 auto;
+	box-sizing: border-box;
+}
+
+.about__content {
+	margin: 0 auto;
+	margin-top: 70px;
+	display: flex;
+	flex-direction: column;
+	box-sizing: border-box;
+}
+
+.about__info {
+	display: flex;
+	margin-bottom: 110px;
+	gap: 40px;
+}
+
+.about__info-title {
+	margin: 0;
+	margin-bottom: 26px;
+	padding: 0;
+	font-size: 20px;
+	font-family: Inter;
+	font-weight: 400;
+	word-wrap: break-word;
+}
+
+.about__text {
+	display: flex;
+	margin-bottom: 110px;
+}
+
+.about__info-text {
+	margin: 0;
+	padding: 0;
+	font-size: 14px;
+	font-family: Inter;
+	font-weight: 400;
+	line-height: 20px;
+	max-width: 550px;
+}
+
+.about__graph {
+	display: flex;
+}
+
+.about__graph-line {
+	width: calc(100vw * 228 / 1140);
+}
+
+.about__graph-line:last-child {
+	width: calc(100vw * 912 / 1140);
+}
+
+.about__graph-title {
+	background-color: #3ddc84;
+	padding-top: 14px;
+	color: black;
+	font-size: 14px;
+	font-family: Inter;
+	font-weight: 400;
+	text-align: center;
+	padding: 9px 0;
+}
+
+.about__graph-subtitle {
+	margin: 15px 0 0;
+	color: #8b8b8b;
+	font-size: 14px;
+	font-family: Inter;
+	font-weight: 500;
+	line-height: 17px;
+	text-align: center;
+}
+
+@media screen and (max-width: 800px) {
+	.about {
+		padding: 90px 50px;
+	}
+	.about__info {
+		margin-bottom: 93px;
+		gap: 30px;
+	}
+	.about__info-title {
+		max-width: 319px;
+	}
+	.about__info-text {
+		font-size: 12px;
+		line-height: 18px;
+		max-width: 319px;
+	}
+	.about__graph-line {
+		max-width: 140px;
+	}
+
+	.about__graph-line:last-child {
+		max-width: 528px;
+	}
+
+	.about__graph-subtitle {
+		margin: 14px 0 0;
+		font-weight: 400;
+		color: #a0a0a0;
+	}
+}
+
+@media screen and (max-width: 500px) {
+	.about {
+		padding: 70px 18px;
+	}
+
+	.about__content {
+		margin-top: 64px;
+	}
+
+	.about__info {
+		flex-direction: column;
+		margin-bottom: 63px;
+		gap: 56px;
+		align-items: center;
+	}
+
+	.about__info-title {
+		margin-bottom: 17px;
+		font-size: 18px;
+	}
+
+	.about__info-text {
+		font-size: 11px;
+		line-height: 16px;
+	}
+
+	.about__graph-title {
+		padding-top: 11px 10px;
+		font-size: 11px;
+	}
+
+	.about__graph-subtitle {
+		margin: 10px 0 0;
+		color: #a0a0a0;
+		font-size: 11px;
+	}
+	.about__graph {
+		width: 100%;
+	}
+
+	.about__graph-line {
+		width: 100px;
+	}
+
+	.about__graph-line:last-child {
+		max-width: 184px;
+	}
+}

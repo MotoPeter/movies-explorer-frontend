@@ -1,0 +1,25 @@
+.page {
+	width: 100%;
+	margin: 0 auto;
+	font-family: "Inter", "Source Sans Pro", "Arial", sans-serif;
+	box-sizing: border-box;
+	text-rendering: optimizeLegibility;
+	background-color: #202020;
+}
+
+.page__subtitle {
+	max-width: 1140px;
+	margin: 0 auto;
+	padding: 0 0 23px;
+	border-bottom: 1px solid #dadada;
+	font-size: 22px;
+	font-family: Inter;
+	font-weight: 400;
+}
+
+@media screen and (max-width: 550px) {
+	.page__subtitle {
+		padding: 0 0 28px;
+		font-size: 18px;
+	}
+}

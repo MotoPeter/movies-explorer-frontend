@@ -1,0 +1,146 @@
+.about-me {
+	padding: 121px 70px 101px;
+	color: white;
+	max-width: 1280px;
+	margin: 0 auto;
+}
+
+.about-me__content {
+	max-width: 1140px;
+	margin: 0 auto;
+	display: flex;
+	justify-content: space-between;
+	margin-top: 66px;
+}
+
+.about-me__text {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.about-me__image {
+	max-width: 270px;
+	max-height: 327px;
+	object-fit: cover;
+	border-radius: 10px;
+	margin-left: 49px;
+}
+
+.about-me__name {
+	padding: 0;
+	margin: 0;
+	font-size: 50px;
+	font-weight: 400;
+	line-height: 58px;
+	margin-bottom: 18px;
+}
+
+.about-me__occupation {
+	margin: 0;
+	font-size: 18px;
+	font-family: Inter;
+	font-weight: 500;
+	line-height: 20px;
+	margin-bottom: 26px;
+}
+
+.about-me__biography {
+	max-width: 600px;
+	margin: 0;
+	font-size: 14px;
+	font-family: Inter;
+	font-weight: 400;
+	line-height: 22px;
+	margin-bottom: 99px;
+}
+
+.about-me__link {
+	color: white;
+	font-size: 14px;
+	font-family: Inter;
+	font-weight: 500;
+}
+
+@media screen and (max-width: 800px) {
+	.about-me {
+		padding: 88px 50px;
+	}
+
+	.about-me__image {
+		max-width: 255px;
+		max-height: 307px;
+	}
+
+	.about-me__name {
+		font-size: 40px;
+		font-weight: 400;
+		line-height: 40px;
+		margin-bottom: 16px;
+	}
+
+	.about-me__occupation {
+		margin: 0;
+		font-size: 12px;
+		font-family: Inter;
+		font-weight: 500;
+		line-height: 18px;
+		margin-bottom: 20px;
+	}
+
+	.about-me__biography {
+		max-width: 364px;
+		font-size: 12px;
+		font-family: Inter;
+		font-weight: 400;
+		line-height: 18px;
+		margin-bottom: 87px;
+	}
+}
+
+@media screen and (max-width: 500px) {
+	.about-me {
+		padding: 70px 14px;
+	}
+
+	.about-me__content {
+		flex-direction: column-reverse;
+		align-items: center;
+		margin-top: 60px;
+	}
+
+	.about-me__text {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+
+	.about-me__image {
+		max-width: 292px;
+		max-height: 352px;
+		aspect-ratio: 292 / 352;
+		margin-left: 0;
+		margin-bottom: 40px;
+	}
+
+	.about-me__name {
+		font-size: 30px;
+		margin-bottom: 20px;
+	}
+
+	.about-me__occupation {
+		font-size: 11px;
+		line-height: 16px;
+		margin-bottom: 20px;
+	}
+
+	.about-me__biography {
+		font-size: 11px;
+		line-height: 16px;
+		margin-bottom: 40px;
+	}
+
+	.about-me__link {
+		color: #ffffff;
+	}
+}

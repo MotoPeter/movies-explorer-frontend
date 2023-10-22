@@ -1,0 +1,19 @@
+.nav-movies {
+	display: flex;
+	list-style: none;
+	margin: 28px 0;
+	padding: 0;
+	margin-left: 53px;
+}
+
+.nav-movies__item:first-child {
+	margin: 0;
+	padding: 0;
+	margin-right: 16px;
+}
+
+@media screen and (max-width: 800px) {
+	.nav-movies {
+		display: none;
+	}
+}

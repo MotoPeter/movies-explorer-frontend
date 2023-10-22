@@ -1,0 +1,84 @@
+.card {
+	padding: 0;
+	margin: 0;
+	max-width: 270px;
+}
+
+.card__image {
+	width: 270px;
+	height: 151px;
+	margin: 0 0 14px 0;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
+}
+
+.card__info {
+	display: flex;
+	justify-content: space-between;
+}
+
+.card__title {
+	color: white;
+	font-size: 13px;
+	font-family: Inter;
+	font-weight: 500;
+	word-wrap: break-word;
+	margin: 0 0 10px 12px;
+}
+
+.card__button-like {
+	height: 16px;
+	width: 16px;
+	padding: 0;
+	border: 3px white solid;
+	border-radius: 50px;
+	background-color: #313131;
+	box-shadow: 0px 3px 6px;
+	margin-right: 12px;
+}
+
+.card__duration {
+	color: #8b8b8b;
+	font-size: 11px;
+	font-family: Inter;
+	font-weight: 400;
+	word-wrap: break-word;
+	margin: 0;
+	margin-left: 12px;
+}
+
+.card__button-del {
+	width: 16px;
+	height: 16px;
+	background-image: url(../../images/CloseIcon.svg);
+	background-color: transparent;
+	background-size: cover;
+	border: none;
+	margin-right: 12px;
+}
+
+@media screen and (max-width: 800px) {
+	.card {
+		max-width: 339px;
+	}
+
+	.card__image {
+		width: 339px;
+		height: 190px;
+	}
+
+	.card__duration {
+		margin-left: 12px;
+	}
+}
+
+@media screen and (max-width: 500px) {
+	.card {
+		max-width: 300px;
+	}
+
+	.card__image {
+		width: 300px;
+		height: 168px;
+	}
+}

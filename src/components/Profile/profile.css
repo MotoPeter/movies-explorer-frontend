@@ -1,0 +1,155 @@
+.profile {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.profile__form {
+	margin: 74px auto 16px;
+	width: 410px;
+}
+
+.profile__title {
+	margin: 0;
+	color: #fff;
+	text-align: center;
+	font-family: Inter;
+	font-size: 24px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+	margin-bottom: 123px;
+}
+
+.profile__info {
+	width: 100%;
+	display: flex;
+	border-bottom: none;
+	padding-bottom: 16px;
+}
+
+.profile__info:first-child {
+	margin-bottom: 17px;
+	border-bottom: 1px #424242 solid;
+}
+
+.profile__subtitle {
+	margin: 0;
+	padding: 0;
+	color: #fff;
+	font-family: Inter;
+	font-size: 11px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+	width: 141px;
+	margin-right: 147px;
+}
+
+.profile__input {
+	margin: 0;
+	padding: 0;
+	border: none;
+	width: 100%;
+	color: #fff;
+	text-align: right;
+	font-family: Inter;
+	font-size: 11px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+	box-sizing: border-box;
+	background-color: #202020;
+}
+
+.profile__input::placeholder {
+	color: #fff;
+}
+
+.profile__button {
+	margin: 204px auto 0;
+	padding: 0;
+	color: #fff;
+	text-align: center;
+	font-family: Inter;
+	font-size: 13px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+	width: 410px;
+	background-color: #202020;
+	border: none;
+}
+
+.profile__button:disabled {
+	opacity: 0.6;
+	cursor: default;
+}
+
+.profile__log-out {
+	display: block;
+	color: #ee3465;
+	text-align: center;
+	font-family: Inter;
+	font-size: 13px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+	background-color: #202020;
+	border: none;
+	margin: 0 auto 70px;
+}
+
+@media screen and (max-width: 800px) {
+	.profile__form {
+		margin: 236px auto 16px;
+	}
+
+	.profile__title {
+		margin-bottom: 96px;
+	}
+
+	.profile__log-out {
+		margin: 0 auto 269px;
+	}
+
+	.profile__button {
+		margin: 194px auto 0;
+	}
+}
+
+@media screen and (max-width: 550px) {
+	.profile__form {
+		margin: 70px auto 16px;
+		max-width: 300px;
+	}
+
+	.profile__title {
+		margin-bottom: 80px;
+	}
+
+	.profile__info {
+		max-width: 260px;
+		margin: 0 auto;
+	}
+
+	.profile__subtitle {
+		max-width: 130px;
+		margin-right: 10px;
+	}
+
+	.profile__input {
+		max-width: 120px;
+		margin-right: 0;
+	}
+
+	.profile__button {
+		margin: 346px auto 16px;
+		max-width: 300px;
+	}
+
+	.profile__log-out {
+		font-size: 12px;
+		margin: 0 auto 40px;
+	}
+}
