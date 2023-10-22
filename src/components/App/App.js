@@ -195,11 +195,9 @@ function App() {
 							path="/sign-in"
 							element={<Login handleLoginSubmit={handleLoginSubmit} />}
 						/>
-
 						<Route
 							path="/"
 							element={
-								<ProtectedRouteElement loggedIn={isLoggedIn}>
 								<>
 									<Header
 										styleColor="#073042"
@@ -209,42 +207,47 @@ function App() {
 									<Main />
 									<Footer />
 								</>
-								</ProtectedRouteElement>
 							}
 						/>
 						<Route
 							path="/profile"
 							element={
-								<Profile
-									handleNavPopup={handleNavPopup}
-									logOutProfile={logOutProfile}
-								/>
+								<ProtectedRouteElement loggedIn={isLoggedIn}>
+									<Profile
+										handleNavPopup={handleNavPopup}
+										logOutProfile={logOutProfile}
+									/>
+								</ProtectedRouteElement>
 							}
 						/>
 						<Route
 							path="/movies"
 							element={
-								<>
-									<Header isLoggedIn={isLoggedIn} onNavPopup={handleNavPopup} />
-									<Movies />
-									<Footer />
-								</>
+								<ProtectedRouteElement loggedIn={isLoggedIn}>
+									<>
+										<Header
+											isLoggedIn={isLoggedIn}
+											onNavPopup={handleNavPopup}
+										/>
+										<Movies />
+										<Footer />
+									</>
+								</ProtectedRouteElement>
 							}
 						/>
 						<Route
 							path="/saved-movies"
 							element={
-								<>
-									<Header isLoggedIn={isLoggedIn} onNavPopup={handleNavPopup} />
-									<SavedMovies />
-									<Footer />
-								</>
-							}
-						/>
-						<Route
-							path="/saved-movies"
-							element={
-								<Header isRegister={isRegister} onNavPopup={handleNavPopup} />
+								<ProtectedRouteElement loggedIn={isLoggedIn}>
+									<>
+										<Header
+											isLoggedIn={isLoggedIn}
+											onNavPopup={handleNavPopup}
+										/>
+										<SavedMovies />
+										<Footer />
+									</>
+								</ProtectedRouteElement>
 							}
 						/>
 					</Routes>
