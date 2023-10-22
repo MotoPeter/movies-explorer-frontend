@@ -10,7 +10,7 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
 import ProtectedRouteElement from "../ProtectedRoute/ProtectedRoute";
-import * as moviesAuth from "../../utils/moviesAuth";
+//import * as moviesAuth from "../../utils/moviesAuth";
 import NavPopup from "../NavPopup/NavPopup";
 import Movies from "../Movies/Movies";
 import SavedMovies from "../SavedMovies/SavedMovies";
@@ -31,11 +31,11 @@ function App() {
 	//переменная состояния загрузки
 	const [isLoading, setIsLoading] = useState(false);
 	//массив фильмов
-	const [movies, setMovies] = useState([]);
+	//const [movies, setMovies] = useState([]);
 	// лайк карточки
 	const [isLiked, setIsLiked] = useState(false);
 	//массив сохраненных фильмов
-	const [savedMovies, setSavedMovies] = useState([]);
+	//const [savedMovies, setSavedMovies] = useState([]);
 	//состояние логирования
 	const [isLoggedIn, setIsLoggedIn] = useState(true);
 
