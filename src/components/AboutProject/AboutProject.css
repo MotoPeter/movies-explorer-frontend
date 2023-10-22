@@ -50,11 +50,11 @@
 }
 
 .about__graph-line {
-	width: calc(100vw * 228 / 1140);
+	width: 20%;
 }
 
 .about__graph-line:last-child {
-	width: calc(100vw * 912 / 1140);
+	width: 80%;
 }
 
 .about__graph-title {
@@ -149,11 +149,11 @@
 		width: 100%;
 	}
 
-	.about__graph-line {
+	/*.about__graph-line {
 		width: 100px;
-	}
+	}*/
 
-	.about__graph-line:last-child {
+	/*.about__graph-line:last-child {
 		max-width: 184px;
-	}
+	}*/
 }

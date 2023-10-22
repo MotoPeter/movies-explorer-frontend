@@ -9,7 +9,7 @@ const AuthForm = ({ onSubmit, title, buttonSubmitText, ...props }) => {
 	//при сабмите
 	const onSubmitAuthForm = (e) => {
 		e.preventDefault();
-		onSubmit(values);
+		//onSubmit(values);
 	};
 
 	return (

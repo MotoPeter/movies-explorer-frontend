@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./app.css";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
@@ -55,34 +55,33 @@ function App() {
 	}
 
 	//при загрузке страницы проверяем токен в локал
-	useEffect(() => {
-		tokenCheck();
-	}, []);
+	//useEffect(() => {
+	//	tokenCheck();
+	//}, []);
 
 	//проверяем токен в локале
-	const tokenCheck = () => {
-		//если в локал есть токен, извлекаем его
-		if (localStorage.getItem("token")) {
-			const token = localStorage
-				.getItem("token")
-				//запрашиваем api
-				.then((res) => {
-					if (res) {
-						//если в ответе есть данные... и переадресовываем на главную страницу
-						//меняем состояние
-						setIsRegister(true);
-						navigate("/", { replace: true });
-					}
-				})
-				.catch(console.error);
-		}
-	};
+	//const tokenCheck = () => {
+	//	//если в локал есть токен, извлекаем его
+	//	if (localStorage.getItem("token")) {
+	//		const token = localStorage
+	//			.getItem("token")
+	//			//запрашиваем api
+	//			.then((res) => {
+	//				if (res) {
+	//					//если в ответе есть данные... и переадресовываем на главную страницу
+	//					//меняем состояние
+	//					setIsRegister(true);
+	//					navigate("/", { replace: true });
+	//				}
+	//			})
+	//			.catch(console.error);
+	//	}
+	//};
 
 	//функция лайка карточки
 	function handleCardLike(card) {
 		//переменная состояния для отображения лайка
-		setIsLiked(true);
-		api
+		setIsLiked(true)
 			//запрос к апи на сохранение фильма
 			.then((newMovies) => {
 				//добавление фильма в массив сохраненных
@@ -93,8 +92,7 @@ function App() {
 	//удаление лайка
 	function handleCardDel(card) {
 		//переменная состояния для отображения лайка
-		setIsLiked(false);
-		api
+		setIsLiked(false)
 			//запрос к апи на удаление
 			.then((res) => {
 				//удаление из массива сохраненых
@@ -124,31 +122,31 @@ function App() {
 
 	//функция регистрации
 	const handleRegistrSubmit = (formValue) => {
-		const { password, email } = formValue
-			//отправляем в апи данные
-			.then((res) => {
-				//функция переадресации
-				inCaseRegister();
-			})
-			.catch((err) => {
-				console.log(err);
-			})
-			.finally(() => {});
+		//const { password, email } = formValue
+		//	//отправляем в апи данные
+		//	.then((res) => {
+		//		//функция переадресации
+		//		inCaseRegister();
+		//	})
+		//	.catch((err) => {
+		//		console.log(err);
+		//	})
+		//	.finally(() => {});
 	};
 
 	//функция авторизации
 	const handleLoginSubmit = (formValue) => {
-		const { password, email } = formValue
-			//обращение к апи
-			.then((data) => {
-				//сохраняем токен в локал
-				if (data.token) {
-					localStorage.setItem("token", data.token);
-					//проверяем токен
-					tokenCheck();
-				}
-			})
-			.catch(console.error);
+		//const { password, email } = formValue
+		//	//обращение к апи
+		//	.then((data) => {
+		//		//сохраняем токен в локал
+		//		if (data.token) {
+		//			localStorage.setItem("token", data.token);
+		//			//проверяем токен
+		//			tokenCheck();
+		//		}
+		//	})
+		//	.catch(console.error);
 	};
 
 	//переадресовываем на страницу входа
