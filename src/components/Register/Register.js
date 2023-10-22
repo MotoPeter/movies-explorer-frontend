@@ -13,15 +13,14 @@ const Registr = ({ handleRegistrSubmit }) => {
 				title={"Добро пожаловать!"}
 				buttonSubmitText={"Зарегистрироваться"}
 			/>
-			<div></div>
-			<p className="register__text">
-				Уже зарегистрированы?
+			<div className="register__footer">
+				<p className="register__text">Уже зарегистрированы?</p>
 				<Reference
 					linkTo="/sign-in"
 					classText="link-auth-text"
 					linkTitle="Войти"
 				/>
-			</p>
+			</div>
 		</section>
 	);
 };

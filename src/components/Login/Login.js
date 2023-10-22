@@ -14,14 +14,14 @@ const Login = ({ handleLoginSubmit }) => {
 					title={"Рады видеть!"}
 					buttonSubmitText={"Войти"}
 				/>
-				<p className="login__text">
-					Ещё не зарегистрированы?
+				<div className="login__footer">
+					<p className="login__text">Ещё не зарегистрированы?</p>
 					<Reference
 						linkTo="/sign-up"
 						classText="link-auth-text"
 						linkTitle="Регистрация"
 					/>
-				</p>
+				</div>
 			</main>
 		</div>
 	);

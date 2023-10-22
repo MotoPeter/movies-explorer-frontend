@@ -3,10 +3,14 @@
 	margin: 70px auto;
 }
 
-.login__text {
-	display: flex;
+.login__footer {
+  display: flex;
 	justify-content: center;
 	width: 100%;
+	margin: 0;
+}
+
+.login__text {
 	margin: 0;
 	text-align: center;
 	color: #a0a0a0;

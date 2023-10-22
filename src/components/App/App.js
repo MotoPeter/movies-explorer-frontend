@@ -160,7 +160,7 @@ function App() {
 	//выход из аккаунта
 	const logOutProfile = () => {
 		//удаляем токен
-		localStorage.removeItem("token");
+		//localStorage.removeItem("token");
 		setIsLoggedIn(false);
 		setCurrentUser({
 			id: "",
