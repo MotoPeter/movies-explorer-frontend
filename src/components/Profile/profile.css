@@ -100,6 +100,11 @@
 	margin: 0 auto 70px;
 }
 
+.profile__log-out:hover {
+  opacity: 0.6;
+	cursor: pointer;
+}
+
 @media screen and (max-width: 800px) {
 	.profile__form {
 		margin: 236px auto 16px;
