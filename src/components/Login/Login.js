@@ -6,24 +6,26 @@ import Reference from "../Reference/Reference";
 
 const Login = ({ handleLoginSubmit }) => {
 	return (
-		<div className="login">
-			<Header />
-			<main>
-				<AuthForm
-					onSubmit={handleLoginSubmit}
-					title={"Рады видеть!"}
-					buttonSubmitText={"Войти"}
-				/>
-				<div className="login__footer">
-					<p className="login__text">Ещё не зарегистрированы?</p>
-					<Reference
-						linkTo="/sign-up"
-						classText="link-auth-text"
-						linkTitle="Регистрация"
+		<sction className="login">
+			<article className="login__content">
+				<Header />
+				<main>
+					<AuthForm
+						onSubmit={handleLoginSubmit}
+						title={"Рады видеть!"}
+						buttonSubmitText={"Войти"}
 					/>
-				</div>
-			</main>
-		</div>
+					<div className="login__footer">
+						<p className="login__text">Ещё не зарегистрированы?</p>
+						<Reference
+							linkTo="/sign-up"
+							classText="link-auth-text"
+							linkTitle="Регистрация"
+						/>
+					</div>
+				</main>
+			</article>
+		</sction>
 	);
 };
 

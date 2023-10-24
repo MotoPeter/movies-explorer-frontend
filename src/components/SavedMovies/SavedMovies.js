@@ -6,10 +6,10 @@ import { savedMovies } from "../../utils/constants";
 
 const SavedMovies = () => {
 	return (
-		<section className="movies">
+		<main className="saved-movies">
 			<SearchForm />
 			<MoviesCardList movies={savedMovies} />
-		</section>
+		</main>
 	);
 };
 

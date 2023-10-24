@@ -6,6 +6,10 @@
 	justify-content: center;
 }
 
+.movies {
+	flex: 1;
+}
+
 .show-more__button {
 	width: 320px;
 	height: 36px;
@@ -14,7 +18,7 @@
 	border: 1px solid #424242;
 	border-radius: 6px;
 	color: #fff;
-	font-family: Inter;
+	font-family: "Inter", "Source Sans Pro", "Arial", sans-serif;
 	font-size: 12px;
 	font-style: normal;
 	font-weight: 500;
@@ -23,7 +27,7 @@
 
 @media screen and (max-width: 800px) {
 	.show-more {
-		padding: 64px 0 116px;
+		padding: 64px 0 120px;
 	}
 }
 

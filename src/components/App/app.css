@@ -5,21 +5,32 @@
 	box-sizing: border-box;
 	text-rendering: optimizeLegibility;
 	background-color: #202020;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
 }
 
 .page__subtitle {
 	max-width: 1140px;
 	margin: 0 auto;
-	padding: 0 0 23px;
+	padding: 0 0 22px;
 	border-bottom: 1px solid #dadada;
 	font-size: 22px;
 	font-family: Inter;
 	font-weight: 400;
+	letter-spacing: -0.88px;
+}
+
+@media screen and (max-width: 800px) {
+	.page__subtitle {
+		padding: 0 0 24px;
+	}
 }
 
 @media screen and (max-width: 550px) {
 	.page__subtitle {
 		padding: 0 0 28px;
 		font-size: 18px;
+		letter-spacing: -0.72px;
 	}
 }

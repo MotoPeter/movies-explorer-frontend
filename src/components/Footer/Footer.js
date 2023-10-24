@@ -7,7 +7,7 @@ const Footer = () => {
 				Учебный проект Яндекс.Практикум х BeatFilm.
 			</h3>
 			<div className="footer__content">
-				<p className="footer__copyright">&copy;{new Date().getFullYear()}</p>
+				<p className="footer__copyright">&copy; {new Date().getFullYear()}</p>
 				<nav>
 					<ul className="footer__link-list">
 						<li>

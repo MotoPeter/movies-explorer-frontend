@@ -11,7 +11,9 @@ function Header({ styleColor, isLoggedIn, onNavPopup, ...props }) {
 	return (
 		<header
 			className={
-				window.location.pathname === "/" ? "header" : "header header-black"
+				window.location.pathname === "/"
+					? "header"
+					: "header header_theme_black"
 			}
 		>
 			<div
@@ -44,7 +46,7 @@ function Header({ styleColor, isLoggedIn, onNavPopup, ...props }) {
 												className={
 													window.location.pathname === "/"
 														? "nav-popup"
-														: "nav-popup-black"
+														: "nav-popup nav-popup_theme_black"
 												}
 												type="button"
 												onClick={onNavPopup}

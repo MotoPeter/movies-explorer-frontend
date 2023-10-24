@@ -12,7 +12,7 @@ const movies = [
 		_id: "1",
 		link: "https://yandex.ru",
 		image: mov1,
-		name: "33 коровы",
+		name: "33 слова о дизайне",
 		duration: "1ч45м",
 	},
 	{
@@ -150,20 +150,7 @@ const savedMovies = [
 		image: mov3,
 		name: "55 коров",
 		duration: "3ч45м",
-	},
-	{
-		_id: "4",
-		link: "https://yandex.ru",
-		image: mov4,
-		name: "66 коров",
-		duration: "4ч45м",
-	},
-	{
-		_id: "5",
-		link: "https://yandex.ru",
-		image: mov5,
-		name: "77 коров",
-		duration: "5ч45м",
-	}]
+	}
+];
 
-export  {movies, savedMovies}
+export { movies, savedMovies };

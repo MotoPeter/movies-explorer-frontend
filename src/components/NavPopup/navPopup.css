@@ -16,7 +16,6 @@
 		justify-content: end;
 		visibility: hidden;
 		opacity: 0;
-		transition: visibility 0.5s, opacity 0.5s linear;
 	}
 
 	.popup_openend {
@@ -53,10 +52,17 @@
 		flex-direction: column;
 		justify-content: flex-start;
 		align-items: center;
-		padding: 162px 0 46px 0;
+		padding: 162px 0 0 0;
 		box-sizing: border-box;
 		position: relative;
 	}
+
+  .popup__content {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+    flex: 1;
+  }
 }
 
 @media screen and (max-width: 550px) {

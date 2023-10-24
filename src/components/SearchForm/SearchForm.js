@@ -8,16 +8,24 @@ function SearchForm() {
 					className="search-form__input"
 					placeholder="Фильм"
 					type="text"
+          name='search'
 					required
 				/>
 				<button type="submit" className="search-form__button link" />
 			</div>
 			<div className="search-form__checkbox">
 				<label className="search-form__checkbox-label">
-					<input className="search-form__checkbox-input" type="checkbox" />
+					<input
+						className="search-form__checkbox-input"
+						type="checkbox"
+						id="checkbox"
+            name='checkbox'
+					/>
 					<span className="search-form__checkbox-span" />
 				</label>
-				<p className="search-form__checkbox-title">Короткометражки</p>
+				<label for="checkbox" className="search-form__checkbox-title">
+					Короткометражки
+				</label>
 			</div>
 		</form>
 	);

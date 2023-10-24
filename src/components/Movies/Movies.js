@@ -3,7 +3,7 @@ import { React, useState, useEffect } from "react";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import { useResize } from "../../hooks/useResize";
-import {movies} from "../../utils/constants";
+import { movies } from "../../utils/constants";
 
 const Movies = () => {
 	//переменная массива карточек для отрисовки
@@ -57,7 +57,7 @@ const Movies = () => {
 	}
 
 	return (
-		<section className="movies">
+		<main className="movies">
 			<SearchForm />
 			<MoviesCardList movies={isMovies} />
 			{/*в зависимости от состояния скрываем или отображаем кнопку*/}
@@ -73,7 +73,7 @@ const Movies = () => {
 					</button>
 				</div>
 			)}
-		</section>
+		</main>
 	);
 };
 
