@@ -17,7 +17,7 @@ const AuthForm = ({ onSubmit, title, buttonSubmitText, ...props }) => {
 			<h1 className="auth-form__title">{title}</h1>
 			{window.location.pathname === "/sign-up" && (
 				<>
-					<label for="name" className="auth-form__subtitle">
+					<label htmlFor="name" className="auth-form__subtitle">
 						Имя
 					</label>
 					<input
@@ -35,7 +35,7 @@ const AuthForm = ({ onSubmit, title, buttonSubmitText, ...props }) => {
 					/>
 				</>
 			)}
-			<label for="email" className="auth-form__subtitle">
+			<label htmlFor="email" className="auth-form__subtitle">
 				E-mail
 			</label>
 			<input
@@ -51,7 +51,7 @@ const AuthForm = ({ onSubmit, title, buttonSubmitText, ...props }) => {
 				autoComplete="off"
 				onChange={handleChange}
 			/>
-			<label for="password" className="auth-form__subtitle">
+			<label htmlFor="password" className="auth-form__subtitle">
 				Пароль
 			</label>
 			<input

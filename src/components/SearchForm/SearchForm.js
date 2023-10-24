@@ -23,7 +23,7 @@ function SearchForm() {
 					/>
 					<span className="search-form__checkbox-span" />
 				</label>
-				<label for="checkbox" className="search-form__checkbox-title">
+				<label htmlFor="checkbox" className="search-form__checkbox-title">
 					Короткометражки
 				</label>
 			</div>

@@ -6,7 +6,7 @@ import Reference from "../Reference/Reference";
 
 const Login = ({ handleLoginSubmit }) => {
 	return (
-		<sction className="login">
+		<section className="login">
 			<article className="login__content">
 				<Header />
 				<main>
@@ -25,7 +25,7 @@ const Login = ({ handleLoginSubmit }) => {
 					</div>
 				</main>
 			</article>
-		</sction>
+		</section>
 	);
 };
 
