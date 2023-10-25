@@ -7,14 +7,22 @@ function NavMovies() {
 			<ul className="nav-movies">
 				<li className="nav-movies__item">
 					<Reference
-						classText="link__movies"
+						classText={
+							window.location.pathname === "/movies"
+								? "link__movies link__movies_active"
+								: "link__movies"
+						}
 						linkTitle="Фильмы"
 						linkTo="/movies"
 					/>
 				</li>
 				<li className="nav-movies__item">
 					<Reference
-						classText="link__movies"
+						classText={
+							window.location.pathname === "/saved-movies"
+								? "link__movies link__movies_active"
+								: "link__movies"
+						}
 						linkTitle="Сохраненные фильмы"
 						linkTo="/saved-movies"
 					/>

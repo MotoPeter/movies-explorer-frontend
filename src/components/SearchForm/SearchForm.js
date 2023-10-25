@@ -2,13 +2,13 @@ import "./searchForm.css";
 
 function SearchForm() {
 	return (
-		<form className="search-form">
+		<form name="search-form" className="search-form">
 			<div className="search-form__content">
 				<input
 					className="search-form__input"
 					placeholder="Фильм"
 					type="text"
-          name='search'
+					name="search"
 					required
 				/>
 				<button type="submit" className="search-form__button link" />
@@ -19,7 +19,7 @@ function SearchForm() {
 						className="search-form__checkbox-input"
 						type="checkbox"
 						id="checkbox"
-            name='checkbox'
+						name="checkbox"
 					/>
 					<span className="search-form__checkbox-span" />
 				</label>

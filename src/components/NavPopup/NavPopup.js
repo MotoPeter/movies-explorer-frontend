@@ -32,7 +32,7 @@ function NavPopup({ isOpen }) {
 	}
 
 	return (
-		<section className={`popup ${isOpen}`} onClick={clickClosePopap}>
+		<section className={isOpen} onClick={clickClosePopap}>
 			<nav className="popup__container">
 				<button
 					type="button"
@@ -42,19 +42,31 @@ function NavPopup({ isOpen }) {
 				<div className="popup__content">
 					<Reference
 						classType="popup-opening"
-						classText={window.location.pathname === "/" ? "popup-text popup__text_active" : 'popup-text'}
+						classText={
+							window.location.pathname === "/"
+								? "popup-opening__text popup-opening__text_active"
+								: "popup-opening__text"
+						}
 						linkTo="/"
 						linkTitle="Главная"
 					/>
 					<Reference
 						classType="popup-opening"
-						classText={window.location.pathname === "/movies" ? "popup-text popup__text_active" : 'popup-text'}
+						classText={
+							window.location.pathname === "/movies"
+								? "popup-opening__text popup-opening__text_active"
+								: "popup-opening__text"
+						}
 						linkTitle="Фильмы"
 						linkTo={"movies"}
 					/>
 					<Reference
 						classType="popup-opening"
-						classText={window.location.pathname === "/saved-movies" ? "popup-text popup__text_active" : 'popup-text'}
+						classText={
+							window.location.pathname === "/saved-movies"
+								? "popup-opening__text popup-opening__text_active"
+								: "popup-opening__text"
+						}
 						linkTitle="Сохраненные фильмы"
 						linkTo={"saved-movies"}
 					/>

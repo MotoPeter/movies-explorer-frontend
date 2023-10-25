@@ -182,7 +182,7 @@ function App() {
 	return (
 		<AppContext.Provider value={{ isLoading, closeNavPopup }}>
 			<CurrentUserContext.Provider value={currentUser}>
-				<div className="page">
+				<div className="app">
 					<Routes>
 						<Route
 							path="/sign-up"
@@ -251,7 +251,7 @@ function App() {
 					</Routes>
 					<NavPopup
 						//открытие попапа
-						isOpen={isNavPopup && "popup_openend"}
+						isOpen={isNavPopup ? "popup popup_openend" : 'popup'}
 						onClose={closeNavPopup}
 					/>
 				</div>

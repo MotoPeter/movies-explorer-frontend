@@ -6,7 +6,7 @@
 }
 
 .profile__content {
-	margin: auto;
+	margin: 0 auto 0;
 }
 
 .profile__form {
@@ -68,7 +68,7 @@
 }
 
 .profile__input:focus {
-  outline: 2px solid hotpink;
+	outline: 2px solid hotpink;
 }
 
 .profile__input::placeholder {
@@ -165,16 +165,16 @@
 
 	.profile__log-out {
 		margin: 0 auto 269px;
-    padding-top: 16px;
+		padding-top: 16px;
 	}
 
 	.profile__button {
 		margin: 18.94vh auto 0;
 	}
 
-  .profile__submit {
-    margin-top: 18.94vh;
-  }
+	.profile__submit {
+		margin-top: 18.94vh;
+	}
 }
 
 @media screen and (max-width: 550px) {
@@ -212,11 +212,11 @@
 		font-size: 12px;
 		margin: 0 auto 40px;
 	}
-  .profile__submit {
-    width: 300px;
-    margin-top: 37vh;
-  }
-  .profile__submit_error {
-    margin: 0;
-  }
+	.profile__submit {
+		width: 300px;
+		margin-top: 37vh;
+	}
+	.profile__submit_error {
+		margin: 0;
+	}
 }

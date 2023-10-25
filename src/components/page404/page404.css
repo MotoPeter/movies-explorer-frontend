@@ -12,8 +12,8 @@
 	box-sizing: border-box;
 	text-align: center;
 	margin: auto;
-  flex: 1;
-  margin-top: 74px;
+	flex: 1;
+	margin-top: 74px;
 }
 
 .page-404__title {
@@ -43,13 +43,13 @@
 
 @media screen and (max-width: 800px) {
 	.page-404__content {
-    margin-top: 237px;
+		margin-top: 237px;
 	}
 }
 
 @media screen and (max-width: 500px) {
 	.page-404__content {
-    margin-top: 329px;
+		margin-top: 329px;
 	}
 
 	.page-404__title {

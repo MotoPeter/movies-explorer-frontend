@@ -6,7 +6,7 @@
 }
 
 .register__content {
-	margin: auto;
+	margin: 71px auto 0;
 	width: 396px;
 }
 
@@ -30,6 +30,10 @@
 	.register__text {
 		color: #8b8b8b;
 	}
+  .register__content {
+    margin: 230px auto 0;
+    width: 396px;
+  }
 }
 
 @media screen and (max-width: 550px) {
@@ -58,6 +62,6 @@
 	.register__text {
 		font-size: 12px;
 		line-height: normal;
-    width: 145px;
+		width: 145px;
 	}
 }

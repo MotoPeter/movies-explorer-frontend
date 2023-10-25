@@ -6,7 +6,7 @@
 }
 
 .login__content {
-	margin: auto;
+	margin: 72px auto 0;
 	width: 396px;
 }
 
@@ -36,6 +36,10 @@
 	.login__text {
 		color: #8b8b8b;
 	}
+  .login__content {
+    margin: 230px auto 0;
+    width: 396px;
+  }
 }
 
 @media screen and (max-width: 550px) {

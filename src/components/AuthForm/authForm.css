@@ -54,7 +54,7 @@
 }
 
 .auth-form__input:last-of-type {
-	margin-bottom: 25.57vh;
+	margin-bottom: 177px;
 }
 
 .auth-form__input-sign-up {
@@ -87,7 +87,7 @@
 	font-style: normal;
 	font-weight: 400;
 	line-height: normal;
-	margin-bottom: 10vh;
+	margin-bottom: 68px;
 }
 
 .auth-form__button {
@@ -112,11 +112,11 @@
 		margin-top: 40px;
 	}
 	.auth-form__input:last-of-type {
-		margin-bottom: 17.5vh;
+		margin-bottom: 180px;
 	}
-  .auth-form__span {
-    margin-bottom: 6.5vh;
-  }
+	.auth-form__span {
+		margin-bottom: 70px;
+	}
 }
 
 @media screen and (max-width: 550px) {
@@ -130,12 +130,12 @@
 	}
 
 	.auth-form__input:last-of-type {
-		margin-bottom: 17.5vh;
+		margin-bottom: 137px;
 	}
 
-  .auth-form__button_type_sign-in {
-    margin-top: 16.7vh;
-  }
+	.auth-form__button_type_sign-in {
+		margin-top: 130px;
+	}
 
 	.auth-form__button {
 		font-size: 12px;
@@ -149,6 +149,6 @@
 		font-style: normal;
 		font-weight: 400;
 		line-height: normal;
-		margin-bottom: 20.12vh;
+		margin-bottom: 157px;
 	}
 }

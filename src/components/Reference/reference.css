@@ -21,8 +21,8 @@
 	line-height: normal;
 	text-decoration: none;
 	max-width: 42px;
-  flex-shrink: 0;
-  margin-bottom: 46px;
+	flex-shrink: 0;
+	margin-bottom: 46px;
 }
 
 .popup-opening {
@@ -30,7 +30,7 @@
 	margin-bottom: 22px;
 }
 
-.popup-text {
+.popup-opening__text {
 	color: white;
 	font-size: 18px;
 	font-family: "Inter", "Source Sans Pro", "Arial", sans-serif;
@@ -39,11 +39,11 @@
 	word-wrap: break-word;
 	padding: 0;
 	margin: 0;
-  padding-bottom: 3px;
+	padding-bottom: 3px;
 }
 
-.popup__text_active {
-  border-bottom: 2px solid #ffffff;
+.popup-opening__text_active {
+	border-bottom: 2px solid #ffffff;
 }
 
 .link-accaunt {
@@ -133,21 +133,20 @@
 	border-radius: 50%;
 }
 
-.link__text-signup {
+.link__text {
 	margin: 0;
-	color: white;
 	font-size: 12px;
 	font-family: "Inter", "Source Sans Pro", "Arial", sans-serif;
 	font-weight: 500;
+}
+
+.link__text_type_signup {
+	color: white;
 	line-height: 32px;
 }
 
-.link__text-signin {
+.link__text_type_signin {
 	color: black;
-	margin: 0;
-	font-size: 12px;
-	font-family: "Inter", "Source Sans Pro", "Arial", sans-serif;
-	font-weight: 500;
 	line-height: 16px;
 }
 
@@ -161,10 +160,14 @@
 	font-family: "Inter", "Source Sans Pro", "Arial", sans-serif;
 	font-size: 13px;
 	font-style: normal;
-	font-weight: 500;
+	font-weight: 400;
 	line-height: 18px;
 	margin: 0;
 	padding: 0;
+}
+
+.link__movies_active {
+	font-weight: 500;
 }
 
 .link-auth-text {
@@ -198,22 +201,22 @@
 		display: none;
 	}
 
-  .link-page-404 {
-    margin-bottom: 208px;
-  }
+	.link-page-404 {
+		margin-bottom: 208px;
+	}
 }
 
 @media screen and (max-width: 550px) {
 	.link-page-404 {
 		font-size: 12px;
 		max-width: 36px;
-    margin-bottom: 18px;
+		margin-bottom: 18px;
 	}
 
-	.popup-text {
+	.popup-opening__text {
 		font-size: 18px;
 		font-weight: 500;
-    padding-bottom: 8px;
+		padding-bottom: 8px;
 	}
 
 	.popup-opening {
@@ -230,14 +233,14 @@
 		margin-left: 0;
 	}
 
-	.link__text-signup {
+	.link__text_type_signup {
 		margin: 0;
 		color: white;
 		font-size: 10px;
 		line-height: 24px;
 	}
 
-	.link__text-signin {
+	.link__text_type_signin {
 		font-size: 10px;
 		line-height: 16px;
 	}
