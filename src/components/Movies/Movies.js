@@ -4,6 +4,7 @@ import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import { useResize } from "../../hooks/useResize";
 import { movies } from "../../utils/constants";
+import Preloader from "../Preloader/Preloader";
 
 const Movies = () => {
 	//переменная массива карточек для отрисовки
@@ -12,7 +13,8 @@ const Movies = () => {
 	const [isRemaningMovies, setIsRemaningMovies] = useState(null);
 	//состояние отображения кнопки еще
 	const [isMoreButton, setIsMoreButton] = useState(true);
-
+	//состояние загрузки карточек
+	const [isPreloader, setIsPreloader] = useState(true);
 	//колличество карточек начальной загрузки и при нажатии еще
 	const { splittingMovies } = useResize();
 
@@ -73,6 +75,7 @@ const Movies = () => {
 					</button>
 				</div>
 			)}
+			{ isPreloader && <Preloader /> }
 		</main>
 	);
 };

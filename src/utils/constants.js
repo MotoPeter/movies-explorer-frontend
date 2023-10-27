@@ -150,7 +150,11 @@ const savedMovies = [
 		image: mov3,
 		name: "55 коров",
 		duration: "3ч45м",
-	}
+	},
 ];
 
 export { movies, savedMovies };
+
+export const MOVIES_URL = "https://api.nomoreparties.co";
+
+export const MAIN_API = "https://api.me.motopeter.nomoredomainsrocks.ru";

@@ -1,21 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./app.css";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { AppContext } from "../../contexts/AppContext";
-import { api } from "../../utils/api";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { api } from "../../utils/mainApi";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
 import ProtectedRouteElement from "../ProtectedRoute/ProtectedRoute";
-//import * as moviesAuth from "../../utils/moviesAuth";
+import * as moviesAuth from "../../utils/moviesAuth";
 import NavPopup from "../NavPopup/NavPopup";
 import Movies from "../Movies/Movies";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import Profile from "../Profile/Profile";
 import Page404 from "../page404/Page404";
+import InfoTooltip from "../InfoTooltip/InfoTooltip";
+import imgOk from "../../images/img-ok.png";
+import imgNone from "../../images/img-none.png";
 
 function App() {
 	//данные пользователя
@@ -37,9 +40,19 @@ function App() {
 	//массив сохраненных фильмов
 	//const [savedMovies, setSavedMovies] = useState([]);
 	//состояние логирования
-	const [isLoggedIn, setIsLoggedIn] = useState(true);
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	//стейс открытия тултипа
+	const [isInfoTooltipPopup, setIsInfoTooltipPopup] = useState(false);
+	//стуйт ошибки
+	const [error, setError] = useState();
 
 	const navigate = useNavigate();
+
+	//сбрасываем ошибку при переходе на другую страницу
+	const { pathname } = useLocation();
+	useEffect(() => {
+		setError("");
+	}, [pathname]);
 
 	// функция, которая принимает функцию запроса
 	function handleSubmit(request) {
@@ -60,23 +73,28 @@ function App() {
 	//}, []);
 
 	//проверяем токен в локале
-	//const tokenCheck = () => {
-	//	//если в локал есть токен, извлекаем его
-	//	if (localStorage.getItem("token")) {
-	//		const token = localStorage
-	//			.getItem("token")
-	//			//запрашиваем api
-	//			.then((res) => {
-	//				if (res) {
-	//					//если в ответе есть данные... и переадресовываем на главную страницу
-	//					//меняем состояние
-	//					setIsRegister(true);
-	//					navigate("/", { replace: true });
-	//				}
-	//			})
-	//			.catch(console.error);
-	//	}
-	//};
+	const tokenCheck = () => {
+		//если в локал есть токен, извлекаем его
+		if (localStorage.getItem("token")) {
+			const token = localStorage.getItem("token");
+			//запрашиваем api
+			moviesAuth
+				.getContent(token)
+				.then((res) => {
+          console.log(res);
+					if (res) {
+						//если в ответе есть данные
+						setCurrentUser(res);
+						//меняем состояние
+						setIsRegister(true);
+            setIsLoggedIn(true);
+						//переадресовываем на страницу с фильмами
+						inCaseRegister();
+					}
+				})
+				.catch(console.error);
+		}
+	};
 
 	//функция лайка карточки
 	function handleCardLike(card) {
@@ -122,37 +140,54 @@ function App() {
 
 	//функция регистрации
 	const handleRegistrSubmit = (formValue) => {
-		//const { password, email } = formValue
-		//	//отправляем в апи данные
-		//	.then((res) => {
-		//		//функция переадресации
-		//		inCaseRegister();
-		//	})
-		//	.catch((err) => {
-		//		console.log(err);
-		//	})
-		//	.finally(() => {});
+		//получаем значения
+		const { name, email, password } = formValue;
+		//обращаемя к апи
+		moviesAuth
+			.register(name, email, password)
+			.then((res) => {
+				//стейт регистарции
+				setIsRegister(true);
+				//открываем тултип
+				tooltipOpen();
+				//запрашиваем токен
+				handleLoginSubmit({password, email})
+      })
+			.catch((err) => {
+				console.log(err);
+				//стейт регистрации
+				setIsRegister(false);
+				//открываем тултип
+				tooltipOpen();
+				//записываем в стейт ошибку
+				setError(err);
+			})
+			.finally(() => {
+				tooltipOpen();
+			});
 	};
 
 	//функция авторизации
 	const handleLoginSubmit = (formValue) => {
-		//const { password, email } = formValue
-		//	//обращение к апи
-		//	.then((data) => {
-		//		//сохраняем токен в локал
-		//		if (data.token) {
-		//			localStorage.setItem("token", data.token);
-		//			//проверяем токен
-		//			tokenCheck();
-		//		}
-		//	})
-		//	.catch(console.error);
+		const { password, email } = formValue
+			//обращение к апи
+      moviesAuth
+			.authorization(password, email)
+			.then((data) => {
+				//сохраняем токен в локал
+				if (data.token) {
+					localStorage.setItem("token", data.token);
+					//проверяем токен
+					tokenCheck();
+				}
+			})
+			.catch(console.error);
 	};
 
-	//переадресовываем на страницу входа
+	//переадресовываем на страницу фильмов
 	const inCaseRegister = () => {
-		navigate("/sign-in", { replace: true });
-		setIsRegister(true);
+		navigate("/movies", { replace: true });
+		setError("");
 	};
 
 	//выход из аккаунта
@@ -169,15 +204,28 @@ function App() {
 		navigate("/", { replace: true });
 	};
 
+	const tooltipOpen = () => {
+		setIsInfoTooltipPopup(true);
+	};
+
 	//открытие попапа с навигацией
 	function handleNavPopup() {
 		setisNavPopup(true);
 	}
 
-	//закрытие попапа с навигацией
+	//закрытие всех попапов
 	function closeNavPopup() {
 		setisNavPopup(false);
+		setIsInfoTooltipPopup(false);
 	}
+
+	//закрытие тултипа
+	useEffect(() => {
+		if (isInfoTooltipPopup)
+			setTimeout(() => {
+				closeNavPopup();
+			}, 2000);
+	}, [isInfoTooltipPopup]);
 
 	return (
 		<AppContext.Provider value={{ isLoading, closeNavPopup }}>
@@ -186,7 +234,12 @@ function App() {
 					<Routes>
 						<Route
 							path="/sign-up"
-							element={<Register handleSubmit={handleRegistrSubmit} />}
+							element={
+								<Register
+									handleRegistrSubmit={handleRegistrSubmit}
+									error={error}
+								/>
+							}
 						/>
 						<Route path="*" element={<Page404 />} />
 						<Route
@@ -251,8 +304,20 @@ function App() {
 					</Routes>
 					<NavPopup
 						//открытие попапа
-						isOpen={isNavPopup ? "popup popup_openend" : 'popup'}
+						isOpen={isNavPopup ? "popup popup_openend" : "popup"}
 						onClose={closeNavPopup}
+					/>
+					<InfoTooltip
+						title={
+							isRegister
+								? "Вы успешно зарегистрировались!"
+								: "Что то пошло не так! Попробуйте еще раз!"
+						}
+						imgAlt={isRegister ? "галочка" : "крестик"}
+						imgSrc={isRegister ? imgOk : imgNone}
+						onClose={closeNavPopup}
+						isOpen={isInfoTooltipPopup ? "tooltip tooltip_openend" : "tooltip"}
+						name={"infoTooltip"}
 					/>
 				</div>
 			</CurrentUserContext.Provider>

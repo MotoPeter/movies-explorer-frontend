@@ -2,14 +2,14 @@ import React from "react";
 import { useForm } from "../../hooks/useForm";
 import "./authForm.css";
 
-const AuthForm = ({ onSubmit, title, buttonSubmitText, ...props }) => {
+const AuthForm = ({ onSubmit, title, buttonSubmitText, error, ...props }) => {
 	//данные из инпутов
 	const { values, handleChange, setValues } = useForm({});
 
 	//при сабмите
 	const onSubmitAuthForm = (e) => {
 		e.preventDefault();
-		//onSubmit(values);
+		onSubmit(values);
 	};
 
 	return (
@@ -27,7 +27,7 @@ const AuthForm = ({ onSubmit, title, buttonSubmitText, ...props }) => {
 						type="name"
 						value={values.name || ""}
 						placeholder="Ваше имя"
-						minLength="5"
+						minLength="2"
 						maxLength="50"
 						required
 						autoComplete="off"
@@ -73,7 +73,7 @@ const AuthForm = ({ onSubmit, title, buttonSubmitText, ...props }) => {
 				onChange={handleChange}
 			/>
 			{window.location.pathname === "/sign-up" && (
-				<span className="auth-form__span">Что то пошло не так</span>
+				<span className="auth-form__span">{error}</span>
 			)}
 			<button
 				className={
