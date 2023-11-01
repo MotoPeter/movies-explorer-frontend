@@ -51,7 +51,6 @@ class Api {
 	//отправка на сервер новой карточки
 	addNewSavedMovies(formValues) {
 		return fetch(`${this._url}/movies`, {
-      credentials: 'include',
 			//метод для отправки данных
 			method: "POST",
 			headers: this._headers,
@@ -68,7 +67,7 @@ class Api {
         nameRU: formValues["nameRU"],
         nameEN: formValues["nameEN"],
       }),
-		}).then(this._checkResponse);
+		})
 	}
 
 	deleteSavedMovies(place) {
@@ -77,18 +76,20 @@ class Api {
 			method: "DELETE",
       credentials: 'include',
 			headers: this._headers,
-		}).then(this._checkResponse);
+		})
 	}
 
 }
 
 //создаем элемент api
-export const api = new Api(
+const mainApi = new Api(
 	MAIN_API,
 	{
-    authorization: localStorage.getItem('jwt'),
-		"Content-Type": "application/json",
+    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+    'Content-Type': 'application/json',
 	},
   //функция проверки ответа от сервера
 	checkResponse
 );
+
+export default mainApi;

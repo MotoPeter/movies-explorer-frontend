@@ -45,6 +45,11 @@
 	border: none;
 }
 
+.search-form__button:disabled {
+opacity: 0.4;
+cursor: auto;
+}
+
 .search-form__checkbox {
 	display: flex;
 	justify-content: start;

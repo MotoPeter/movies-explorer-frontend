@@ -1,32 +1,27 @@
-import { checkResponse } from "./checkResponse";
-import { MOVIES_URL } from "./constants";
-
 class MoviesApi {
-  constructor(url, headers, checkResponse) {
-    this._url = url;
-    this._headers = headers;
-		this._checkResponse = checkResponse;
+  constructor(config) {
+    this._address = config.address;
+    this._headers = config.headers;
   }
 
-  //универсальный метод проверки запроса
-  _request(url, options) {
-    return fetch(url, options).then(this._checkResponse)
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+
+    return Promise.reject(`Ошибка: ${res.status}`);
   }
 
-
-  //загрузка карточек с сервера
-	getInitialMovies() {
-		//запрос на сервер на получение карточек
-		return this._request(`${this._url}/beatfilm-movies`, {
-			headers: this._headers,
-			//получив промис проверяем статус
-		})
-	}
+  getMovies() {
+    return fetch(`${this._address}/beatfilm-movies`, {
+      method: 'GET',
+      headers: this._headers,
+    })
+  }
 }
 
-
 const moviesApi = new MoviesApi({
-  url: MOVIES_URL,
+  address: 'https://api.nomoreparties.co',
   headers: {
     'Content-Type': 'application/json',
   },

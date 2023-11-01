@@ -19,13 +19,16 @@ import Page404 from "../page404/Page404";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
 import imgOk from "../../images/img-ok.png";
 import imgNone from "../../images/img-none.png";
+import { errorName } from "../../utils/checkResponse";
+import moviesApi from "../../utils/moviesApi";
+import mainApi from "../../utils/mainApi";
 
 function App() {
 	//данные пользователя
 	const [currentUser, setCurrentUser] = useState({
-		name: "Виталий",
-		email: "pohcta@yandex.ru",
-		_id: "123456789",
+		name: "",
+		email: "",
+		_id: "",
 	});
 	//переменная состояния попапа навигации
 	const [isNavPopup, setisNavPopup] = useState(false);
@@ -33,8 +36,6 @@ function App() {
 	const [isRegister, setIsRegister] = useState(false);
 	//переменная состояния загрузки
 	const [isLoading, setIsLoading] = useState(false);
-	//массив фильмов
-	//const [movies, setMovies] = useState([]);
 	// лайк карточки
 	const [isLiked, setIsLiked] = useState(false);
 	//массив сохраненных фильмов
@@ -45,14 +46,39 @@ function App() {
 	const [isInfoTooltipPopup, setIsInfoTooltipPopup] = useState(false);
 	//стуйт ошибки
 	const [error, setError] = useState();
+	//стейт карточек с сервера всех
+	const [movies, setMovies] = useState([]);
+	//состояние загрузки карточек
+	const [isPreloader, setIsPreloader] = useState(false);
+	//состояние результата поиска
+	const [isSearchRezult, setIsSearchRezult] = useState(true);
+	//положение чекбокса на странице фильмов
+	const [isCheckboxMovies, setIsCheckboxMovies] = useState(false);
+	//состояние ошибки при подключении к серверу с фильмами
+	const [moviesApiError, setMoviesApiError] = useState(false);
+	//массив сохраненых карточек
+	const [savedMovies, setSavedMovies] = useState([]);
 
 	const navigate = useNavigate();
 
 	//сбрасываем ошибку при переходе на другую страницу
 	const { pathname } = useLocation();
+
 	useEffect(() => {
 		setError("");
 	}, [pathname]);
+
+//загрузка сохраненных карточек
+function getSavedMovies () {
+   mainApi.getInitialSavedMovies()
+     .then((res) => {
+      let savedMoviesOwner=[]
+      res.map((item) => {item.owner === currentUser._id && savedMoviesOwner.push(item);});
+      setSavedMovies(res.reverse());
+     })
+     .catch(console.error);
+  }
+ 
 
 	// функция, которая принимает функцию запроса
 	function handleSubmit(request) {
@@ -60,17 +86,30 @@ function App() {
 		setIsLoading(true);
 		//запускает функцию запроса
 		request()
-			.then()
+			.then((res) => {
+				setIsLoading(false);
+				setIsRegister(true);
+				tooltipOpen();
+				inCaseRegister();
+			})
 			// ловит ошибку
-			.catch(console.error)
+			.catch((err) => {
+				console.log(err);
+				tooltipOpen();
+				setIsRegister(false);
+			})
 			// закрывает прелоадер
-			.finally(() => setIsLoading(false));
+			.finally(() => {
+				setIsLoading(false);
+			});
 	}
 
 	//при загрузке страницы проверяем токен в локал
-	//useEffect(() => {
-	//	tokenCheck();
-	//}, []);
+	useEffect(() => {
+    setCurrentUser({})
+    console.log(currentUser);
+		tokenCheck();
+	}, []);
 
 	//проверяем токен в локале
 	const tokenCheck = () => {
@@ -80,14 +119,14 @@ function App() {
 			//запрашиваем api
 			moviesAuth
 				.getContent(token)
+				.then(checkResponse)
 				.then((res) => {
-          console.log(res);
 					if (res) {
 						//если в ответе есть данные
 						setCurrentUser(res);
 						//меняем состояние
-						setIsRegister(true);
-            setIsLoggedIn(true);
+						setIsLoggedIn(true);
+            getSavedMovies()
 						//переадресовываем на страницу с фильмами
 						inCaseRegister();
 					}
@@ -96,83 +135,151 @@ function App() {
 		}
 	};
 
-	//функция лайка карточки
-	function handleCardLike(card) {
-		//переменная состояния для отображения лайка
-		setIsLiked(true)
-			//запрос к апи на сохранение фильма
-			.then((newMovies) => {
-				//добавление фильма в массив сохраненных
-			})
-			.catch(console.error);
+	function handleCheckbox() {
+		setIsCheckboxMovies(!isCheckboxMovies);
 	}
 
-	//удаление лайка
-	function handleCardDel(card) {
-		//переменная состояния для отображения лайка
-		setIsLiked(false)
-			//запрос к апи на удаление
+	//получение общего массива фильмов
+	function getMovies(search) {
+		moviesApi
+			.getMovies()
+			.then(checkResponse)
 			.then((res) => {
-				//удаление из массива сохраненых
+				//фильтруем по поиску
+				let filterMovies = res.filter(({ nameRU }) =>
+					nameRU.toLowerCase().includes(search.toLowerCase())
+				);
+				let formatMovies = [];
+				//приводим массив в соответствие с моделью сервера
+				filterMovies.map((filterMovie) => {
+					let formatMovie = {
+						image: "https://api.nomoreparties.co" + filterMovie.image.url,
+						trailerLink: filterMovie.trailerLink,
+						thumbnail: "https://api.nomoreparties.co" + filterMovie.image.url,
+						movieId: filterMovie.id,
+						country: filterMovie.country || "Неизвестно",
+						director: filterMovie.director,
+						duration: filterMovie.duration,
+						year: filterMovie.year,
+						description: filterMovie.description,
+						nameRU: filterMovie.nameRU,
+						nameEN: filterMovie.nameEN,
+            ////добавляем параметр сохранен или нет
+            //isSaved: false,
+					};
+					formatMovies.push(formatMovie);
+				});
+        ////проверяем есть ли фильм среди сохраненных
+        //formatMovies.map((filterMovie) => {
+        // filterMovie.isSaved = savedMovies.some(elem => elem.movieId === filterMovie.movieId)
+        //})
+				//сохраняем в стейт полученный массив
+				setMovies(formatMovies);
+				//если массив пустой, для отображения надписи
+				filterMovies.length == 0
+					? setIsSearchRezult(false)
+					: setIsSearchRezult(true);
 			})
-			.catch(console.error);
+			.catch((err) => {
+				setMoviesApiError(true);
+			});
 	}
 
-	//получение сохраненных фильмов и данных пользователя
-	//useEffect(() => {
-	//	Promise.all()
-	//		.then(([savedMovies, userInfo]) => {
-	//			setSavedMovies(savedMovies);
-	//			setCurrentUser(userInfo);
-	//		})
-	//		.catch(console.error);
-	//}, []);
+  //сщхранение карточки при лайке
+	function newSavedMovies(movie) {
+    //const newMovie = movie
+		////проверяем есть ли такой элемент в массиве
+    //const isMovieSavedMovies = savedMovies.some(elem => elem.id === movie.movieId)
+    //!isMovieSavedMovies &&
+		mainApi
+			.addNewSavedMovies(movie)
+			.then(checkResponse)
+			.then((res) => {
+				setSavedMovies([res, ...savedMovies]);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	}
+
+  //удаление карточки из сохраненных
+  function deleteMovie(movie) {
+    mainApi
+			.deleteSavedMovies(movie)
+			.then(checkResponse)
+			.then((res) => {
+  //удаляем из массива для отображения
+				setSavedMovies((state) => state.filter((c) => c._id !== movie._id));
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+  }
+
+  //удаление карточки через дизлайк на странице фильмов
+  function deleteMovieFromMovies(movie) {
+    //по id находим карточку в массиве сохраненных и передаем функции удаления
+    const item = savedMovies.find(item => item.movieId === movie.movieId);
+    deleteMovie(item)
+  }
 
 	//функция обновления данных аккаунта
-	function handleUpdateUser({ name, email }) {
+	function handleUpdateUser(name, email) {
 		//обращение к апи и запись результата в каррентюзер
 		function makeRequest() {
-			return api.editProfile({ name, email }).then(setCurrentUser);
+			return moviesAuth
+				.editProfile(name, email)
+				.then(checkResponse)
+				.then(setCurrentUser);
 		}
 		//передаем функцию запроса
 		handleSubmit(makeRequest);
 	}
 
+	//функция проверки ответа от сервера и записи текста ошибки
+	function checkResponse(res) {
+		if (res.ok) {
+			return res.json();
+		}
+		res.json().then((e) => {
+			setError(Object.values(e).toString());
+		});
+		return Promise.reject(`Ошибка: ${res.status}`);
+	}
+
 	//функция регистрации
-	const handleRegistrSubmit = (formValue) => {
-		//получаем значения
-		const { name, email, password } = formValue;
+	const handleRegistrSubmit = (name, email, password) => {
 		//обращаемя к апи
 		moviesAuth
 			.register(name, email, password)
+			.then(checkResponse)
 			.then((res) => {
 				//стейт регистарции
 				setIsRegister(true);
 				//открываем тултип
 				tooltipOpen();
 				//запрашиваем токен
-				handleLoginSubmit({password, email})
-      })
+				handleLoginSubmit(name, email, password);
+			})
 			.catch((err) => {
-				console.log(err);
+				console.log(errorName);
 				//стейт регистрации
 				setIsRegister(false);
 				//открываем тултип
 				tooltipOpen();
 				//записываем в стейт ошибку
-				setError(err);
+				//setError(errorName);
 			})
-			.finally(() => {
-				tooltipOpen();
-			});
+			.finally(() => {});
 	};
 
 	//функция авторизации
-	const handleLoginSubmit = (formValue) => {
-		const { password, email } = formValue
-			//обращение к апи
-      moviesAuth
+	const handleLoginSubmit = (name, email, password) => {
+		//const { password, email } = formValue
+		//	//обращение к апи
+		moviesAuth
 			.authorization(password, email)
+			.then(checkResponse)
 			.then((data) => {
 				//сохраняем токен в локал
 				if (data.token) {
@@ -193,14 +300,11 @@ function App() {
 	//выход из аккаунта
 	const logOutProfile = () => {
 		//удаляем токен
-		//localStorage.removeItem("token");
+		localStorage.removeItem("token");
 		setIsLoggedIn(false);
-		setCurrentUser({
-			id: "",
-			email: "",
-			name: "",
-		});
-		//переадресовываем на страницу входа
+    setMovies([])
+		setCurrentUser({});
+		//переадресовываем на главную страницу
 		navigate("/", { replace: true });
 	};
 
@@ -244,7 +348,9 @@ function App() {
 						<Route path="*" element={<Page404 />} />
 						<Route
 							path="/sign-in"
-							element={<Login handleLoginSubmit={handleLoginSubmit} />}
+							element={
+								<Login handleLoginSubmit={handleLoginSubmit} error={error} />
+							}
 						/>
 						<Route
 							path="/"
@@ -267,6 +373,8 @@ function App() {
 									<Profile
 										handleNavPopup={handleNavPopup}
 										logOutProfile={logOutProfile}
+										onSubmit={handleUpdateUser}
+										error={error}
 									/>
 								</ProtectedRouteElement>
 							}
@@ -280,7 +388,18 @@ function App() {
 											isLoggedIn={isLoggedIn}
 											onNavPopup={handleNavPopup}
 										/>
-										<Movies />
+										<Movies
+											moviesSearch={movies}
+											isPreloader={isPreloader}
+											getMovies={getMovies}
+											isSearchRezult={isSearchRezult}
+											setIsSearchRezult={setIsSearchRezult}
+											handleCheckbox={handleCheckbox}
+											isCheckboxMovies={isCheckboxMovies}
+											newSavedMovies={newSavedMovies}
+                      deleteMovie={deleteMovieFromMovies}
+                      savedMovies={savedMovies}
+										/>
 										<Footer />
 									</>
 								</ProtectedRouteElement>
@@ -295,7 +414,7 @@ function App() {
 											isLoggedIn={isLoggedIn}
 											onNavPopup={handleNavPopup}
 										/>
-										<SavedMovies />
+										<SavedMovies savedMovies={savedMovies} deleteMovie={deleteMovie} />
 										<Footer />
 									</>
 								</ProtectedRouteElement>
@@ -310,7 +429,7 @@ function App() {
 					<InfoTooltip
 						title={
 							isRegister
-								? "Вы успешно зарегистрировались!"
+								? "Данные успешно отправлены"
 								: "Что то пошло не так! Попробуйте еще раз!"
 						}
 						imgAlt={isRegister ? "галочка" : "крестик"}

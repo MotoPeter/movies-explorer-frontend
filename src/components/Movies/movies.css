@@ -10,6 +10,18 @@
 	flex: 1;
 }
 
+.movies__text {
+  display: block;
+  color: red;
+ text-align: center;
+ font-size: 32px;
+}
+
+.movies__text_type_error {
+  font-size: 14px;
+  padding: 0 40px;
+}
+
 .show-more__button {
 	width: 320px;
 	height: 36px;
@@ -35,4 +47,8 @@
 	.show-more {
 		padding: 64px 0 122px;
 	}
+
+  .movies__text {
+   font-size: 24px;
+  }
 }

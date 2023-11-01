@@ -3,40 +3,65 @@ import { React, useState, useEffect } from "react";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import { useResize } from "../../hooks/useResize";
-import { movies } from "../../utils/constants";
 import Preloader from "../Preloader/Preloader";
 
-const Movies = () => {
+const Movies = ({
+	moviesSearch,
+	isPreloader,
+	getMovies,
+	setIsSearchRezult,
+	isSearchRezult,
+	handleCheckbox,
+	isCheckboxMovies,
+	moviesApiError,
+  newSavedMovies,
+  deleteMovie,
+  savedMovies
+}) => {
 	//переменная массива карточек для отрисовки
 	const [isMovies, setIsMovies] = useState([]);
 	//массив оставшихся карточек
 	const [isRemaningMovies, setIsRemaningMovies] = useState(null);
 	//состояние отображения кнопки еще
 	const [isMoreButton, setIsMoreButton] = useState(true);
-	//состояние загрузки карточек
-	const [isPreloader, setIsPreloader] = useState(true);
+	//результат фильтрации по чекбоксу
+	const [isCheckboxRezult, setIsCheckboxRezult] = useState(true);
+
 	//колличество карточек начальной загрузки и при нажатии еще
 	const { splittingMovies } = useResize();
 
+	//проверка длинны массива при изменении кнопки чекбокса
+	const moviesSertchRezult = (moviesSearch) => {
+		moviesSearch == 0 ? setIsCheckboxRezult(false) : setIsCheckboxRezult(true);
+		return isCheckboxRezult;
+	};
+
 	//в зависимости от значения хука ширины экрана присваиваем значения переменным состояния
 	useEffect(() => {
+		isCheckboxMovies
+			? (moviesSearch = moviesSearch.filter(({ duration }) => duration <= 40))
+			: (moviesSearch = moviesSearch);
+		//проверка массива по чекбоксу
+		moviesSertchRezult(moviesSearch);
+		//если чекбокс выключен отключаем ошибку поиска
+		!isCheckboxMovies && setIsCheckboxRezult(true);
 		//если длинна массива больше кол-ва отображаемых карточек
-		if (movies.length > splittingMovies[0]) {
+		if (moviesSearch.length > splittingMovies[0]) {
 			//массив для отображения
-			const loadingMovies = movies.slice(0, splittingMovies[0]);
+			const loadingMovies = moviesSearch.slice(0, splittingMovies[0]);
 			setIsMovies(loadingMovies);
 			//массив оставшихся карточек
-			const moreLoadingMovies = movies.slice(splittingMovies[0]);
+			const moreLoadingMovies = moviesSearch.slice(splittingMovies[0]);
 			setIsRemaningMovies(moreLoadingMovies);
 			//кнопка еще
 			setIsMoreButton(true);
 		} else {
 			//иначе отображаем все карточки
-			setIsMovies(movies);
+			setIsMovies(moviesSearch);
 			//скрываем кнопку еще
 			setIsMoreButton(false);
 		}
-	}, [splittingMovies]);
+	}, [moviesSearch, splittingMovies, isCheckboxMovies, isCheckboxRezult]);
 
 	//функция кнопки еще
 	function moreCards() {
@@ -60,8 +85,17 @@ const Movies = () => {
 
 	return (
 		<main className="movies">
-			<SearchForm />
-			<MoviesCardList movies={isMovies} />
+			<SearchForm onSubmit={getMovies} handleCheckbox={handleCheckbox} />
+			{moviesApiError && (
+				<span className="movies__text movies__text_type_error">
+					Во время запроса произошла ошибка. Возможно, проблема с соединением
+					или сервер недоступен. Подождите немного и попробуйте ещё раз»
+				</span>
+			)}
+			{(!isSearchRezult || !isCheckboxRezult) && (
+				<span className="movies__text">Ни чего не найдено</span>
+			)}
+			<MoviesCardList movies={isMovies} newSavedMovies={newSavedMovies} deleteMovie={deleteMovie} savedMovies={savedMovies} />
 			{/*в зависимости от состояния скрываем или отображаем кнопку*/}
 			{isMoreButton && (
 				<div className="show-more">
@@ -75,7 +109,7 @@ const Movies = () => {
 					</button>
 				</div>
 			)}
-			{ isPreloader && <Preloader /> }
+			{isPreloader && <Preloader />}
 		</main>
 	);
 };

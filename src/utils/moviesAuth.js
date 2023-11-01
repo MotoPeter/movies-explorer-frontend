@@ -10,7 +10,7 @@ export const register = ( name, email, password ) => {
 			"Content-Type": "application/json",
 		},
 		body: JSON.stringify({ name: name, email: email,  password: password }),
-	}).then(checkResponse); //передача функции проверки ответа
+	}); //передача функции проверки ответа
 };
 
 //запрос на сервер при авторизации - пароль и емаил
@@ -21,7 +21,7 @@ export const authorization = (password, email) => {
 			"Content-Type": "application/json",
 		},
 		body: JSON.stringify({ password: password, email: email }),
-	}).then(checkResponse);
+	})
 };
 
 //запрос на сервер проверки токена
@@ -34,5 +34,27 @@ export const getContent = (token) => {
 			"Content-Type": "application/json",
 			authorization: token,
 		},
-	}).then(checkResponse);
-};
+	})
+}
+
+  //редактирование профиля на вход массив с именем и профессией
+	export const editProfile = ( name, email ) => {
+		return fetch(`${MAIN_API}/users/me`, {
+      credentials: 'include',
+			//метод для частичного обновления
+			method: "PATCH",
+			headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        authorization: localStorage.getItem('token'),
+      },
+			//преобразуем в строку
+			body: JSON.stringify({
+				name,
+				email,
+      })
+      })
+    
+    }
+	
+
