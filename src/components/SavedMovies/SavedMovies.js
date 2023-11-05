@@ -11,42 +11,48 @@ const SavedMovies = ({ savedMovies, deleteMovie }) => {
 	const [isSearchRezultSavedMovies, setIsSearchRezultSavedMovies] =
 		React.useState(true);
 	const [isCheckboxRezultSavedMovies, setIsCheckboxRezultSavedMovies] =
-		React.useState(true);
-	const [savedMoviesRezult, setSavedMoviesRezult] = React.useState(savedMovies);
+		React.useState(false);
+	const [savedMoviesRezult, setSavedMoviesRezult] = React.useState([]);
 	const [savedMoviesCheckboxRezult, setSavedMoviesCheckboxRezult] =
-		React.useState([savedMovies]);
+		React.useState([]);
 
+    React.useEffect(() => {
+      setSavedMoviesRezult(savedMovies)
+    }, [savedMovies]);
+
+    //кнопка чекбокса
 	const handleCheckboxSavedMovies = () => {
 		setIsCheckboxSavedMovies(!isCheckboxSavedMovies);
 	};
 
 	const searchSavedMovies = (search) => {
-		setSavedMoviesRezult(SubmitSearch(savedMovies, search));
-		!savedMoviesRezult.length && setIsSearchRezultSavedMovies(false);
+		let searchRezultSavedMovies =(SubmitSearch(savedMovies, search));
+    setSavedMoviesRezult(searchRezultSavedMovies)
 	};
 
 	//проверка длинны массива при изменении кнопки чекбокса
-	const savedMoviesSertchRezult = (moviesSearch) => {
-		(moviesSearch.length == 0)
-			? setIsCheckboxRezultSavedMovies(false)
-			: setIsCheckboxRezultSavedMovies(true);
+	const checkSavedMoviesLength = (moviesSearch) => {
+    console.log(moviesSearch);
+		(moviesSearch.length === 0)
+			? setIsCheckboxRezultSavedMovies(true)
+			: setIsCheckboxRezultSavedMovies(false);
 		return isCheckboxRezultSavedMovies;
 	};
 
 	React.useEffect(() => {
-		!savedMoviesRezult.length
-			? setIsSearchRezultSavedMovies(false)
-			: setIsSearchRezultSavedMovies(true);
 		if (isCheckboxSavedMovies) {
 			let savedMoviesCheckboxOn=
 				savedMoviesRezult.filter(({ duration }) => duration <= 40)
-			setSavedMoviesCheckboxRezult(savedMoviesCheckboxOn)
-			savedMoviesSertchRezult(savedMoviesCheckboxOn);
+			setSavedMoviesCheckboxRezult(savedMoviesCheckboxOn);
 		} else {
-			setIsCheckboxRezultSavedMovies(true);
-			setSavedMoviesCheckboxRezult(savedMoviesRezult);
+      setSavedMoviesCheckboxRezult(savedMoviesRezult)
+			//setIsCheckboxRezultSavedMovies(true);
 		}
-	}, [isCheckboxSavedMovies, savedMovies, savedMoviesRezult]);
+	}, [isCheckboxSavedMovies, savedMoviesRezult, savedMovies]);
+
+  React.useEffect(() => {
+    checkSavedMoviesLength(savedMoviesCheckboxRezult)
+    }, [savedMoviesCheckboxRezult]);
 
 	return (
 		<main className="saved-movies">
@@ -54,7 +60,7 @@ const SavedMovies = ({ savedMovies, deleteMovie }) => {
 				onSubmit={searchSavedMovies}
 				handleCheckbox={handleCheckboxSavedMovies}
 			/>
-			{(!isSearchRezultSavedMovies || !isCheckboxRezultSavedMovies) && (
+			{(isCheckboxRezultSavedMovies) && (
 				<span className="movies__text">Ни чего не найдено</span>
 			)}
 			<MoviesCardList

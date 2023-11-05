@@ -8,10 +8,10 @@ const Movies = ({
 	moviesSearch,
 	getMovies,
 	isSearchRezult,
-	moviesApiError,
 	newSavedMovies,
 	deleteMovie,
 	savedMovies,
+  isMoviesApiError
 }) => {
 	//массив оставшихся карточек
 	const [isRemaningMovies, setIsRemaningMovies] = useState(null);
@@ -120,10 +120,10 @@ const Movies = ({
 				handleCheckbox={handleCheckbox}
 				cheked={isCheckboxMovies}
 			/>
-			{moviesApiError && (
+			{isMoviesApiError && (
 				<span className="movies__text movies__text_type_error">
 					Во время запроса произошла ошибка. Возможно, проблема с соединением
-					или сервер недоступен. Подождите немного и попробуйте ещё раз»
+					или сервер недоступен. Подождите немного и попробуйте ещё раз
 				</span>
 			)}
 			{(!isSearchRezult || !isCheckboxRezult) && (

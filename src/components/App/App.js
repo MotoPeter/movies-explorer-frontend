@@ -49,10 +49,10 @@ function App() {
 	const [movies, setMovies] = useState([]);
 	//состояние результата поиска
 	const [isSearchRezult, setIsSearchRezult] = useState(true);
-	//положение чекбокса на странице фильмов
-	const [isCheckboxMovies, setIsCheckboxMovies] = useState(false);
+	//текст тултипа
+	const [textTooltip, setTextTooltip] = useState('');
 	//состояние ошибки при подключении к серверу с фильмами
-	const [moviesApiError, setMoviesApiError] = useState(false);
+	const [isMoviesApiError, setIsMoviesApiError] = useState(false);
 	//массив сохраненых карточек
 	const [savedMovies, setSavedMovies] = useState([]);
 
@@ -92,6 +92,7 @@ function App() {
 			.then((res) => {
 				setIsLoading(false);
 				setIsRegister(true);
+        setTextTooltip('Данные успешно обновлены!')
 				tooltipOpen();
 				inCaseRegister();
 			})
@@ -185,9 +186,13 @@ function App() {
 				filterMovies.length == 0
 					? setIsSearchRezult(false)
 					: setIsSearchRezult(true);
+          //сбрасываем состояние ошибки
+          //setIsMoviesApiError(false)
 			})
 			.catch((err) => {
-				setMoviesApiError(true);
+				//состояние ошибки
+				setIsMoviesApiError(true)
+				//записываем в стейт ошибку
 			})
 			.finally(() => {
 				setIsLoading(false);
@@ -220,9 +225,7 @@ function App() {
 			.then(checkResponse)
 			.then((res) => {
 				//удаляем из массива для отображения
-				const newSavedMovies = savedMovies.filter((c) => c._id !== res._id);
-        setSavedMovies(newSavedMovies)
-        console.log(savedMovies, newSavedMovies);
+        setSavedMovies((state) => state.filter((c) => c._id !== movie._id))
 			})
 			.catch((err) => {
 				console.log(err);
@@ -269,6 +272,7 @@ function App() {
 			.then((res) => {
 				//стейт регистарции
 				setIsRegister(true);
+        setTextTooltip('Вы успешно зарегистрировались!')
 				//открываем тултип
 				tooltipOpen();
 				//запрашиваем токен
@@ -317,6 +321,7 @@ function App() {
 		localStorage.removeItem("localSearch");
     localStorage.removeItem('CheckboxMovies')
     localStorage.removeItem('movies')
+    localStorage.removeItem("location");
 		setIsLoggedIn(false);
 		setMovies([]);
 		setCurrentUser({});
@@ -352,6 +357,20 @@ function App() {
 			<CurrentUserContext.Provider value={currentUser}>
 				<div className="app">
 					<Routes>
+          <Route
+							path="/"
+							element={
+								<>
+									<Header
+										styleColor="#073042"
+										isLoggedIn={isLoggedIn}
+										onNavPopup={handleNavPopup}
+									/>
+									<Main />
+									<Footer />
+								</>
+							}
+						/>
 						<Route
 							path="/sign-up"
 							element={
@@ -366,20 +385,6 @@ function App() {
 							path="/sign-in"
 							element={
 								<Login handleLoginSubmit={handleLoginSubmit} error={error} />
-							}
-						/>
-						<Route
-							path="/"
-							element={
-								<>
-									<Header
-										styleColor="#073042"
-										isLoggedIn={isLoggedIn}
-										onNavPopup={handleNavPopup}
-									/>
-									<Main />
-									<Footer />
-								</>
 							}
 						/>
 						<Route
@@ -411,6 +416,7 @@ function App() {
 											newSavedMovies={newSavedMovies}
 											deleteMovie={deleteMovieFromMovies}
 											savedMovies={savedMovies}
+                      isMoviesApiError={isMoviesApiError}
 										/>
 										<Footer />
 									</>
@@ -445,7 +451,7 @@ function App() {
 					<InfoTooltip
 						title={
 							isRegister
-								? "Данные успешно отправлены"
+								? textTooltip
 								: "Что то пошло не так! Попробуйте еще раз!"
 						}
 						imgAlt={isRegister ? "галочка" : "крестик"}
