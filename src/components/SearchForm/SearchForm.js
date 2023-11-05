@@ -1,22 +1,42 @@
 import "./searchForm.css";
 import { useInput } from "../../hooks/useInput";
+import React from "react";
 
-function SearchForm ({onSubmit, error, handleCheckbox, ...props}) {
+function SearchForm({ onSubmit, error, handleCheckbox, cheked, ...props }) {
+	//сабмит
+	const [isSubmit, setIsSabmit] = React.useState(false);
 
-  //ввод поиска
-	const search = useInput("", {
-		isEmpty: true,
-	});
+  //получаем значение поиска
+	const defaultSearh = window.localStorage.getItem("localSearch");
 
-  //при сабмите
-	const onSubmitSearch = (e) => {
-		e.preventDefault();
-		onSubmit(search.value);
+	//ввод поиска
+	const search = useInput(
+		window.location.pathname === "/movies" ? defaultSearh : "",
+		{
+			isEmpty: true,
+		}
+	);
+
+	const onBlur = () => {
+		setIsSabmit(false);
 	};
+
+	const Checkbox = () => {
+		handleCheckbox();
+	};
+
+	//при сабмите
+	const onSubmitSearch = (e) => {
+		setIsSabmit(true);
+		e.preventDefault();
+		!search.isEmpty && onSubmit(search.value);
+	};
+
 	return (
 		<form name="search-form" className="search-form" onSubmit={onSubmitSearch}>
-       {search.isDirty && search.isEmpty && (
-						<span className="auth-form__text">Поле не может быть пустым</span>)}
+			{isSubmit && search.isEmpty && (
+				<span className="auth-form__text">Нужно ввести ключевое слово</span>
+			)}
 			<div className="search-form__content">
 				<input
 					className="search-form__input"
@@ -24,10 +44,16 @@ function SearchForm ({onSubmit, error, handleCheckbox, ...props}) {
 					type="text"
 					name="search"
 					required
-          onChange={search.handleChange}
-					onBlur={search.onBlur}
+					autoComplete="off"
+					value={search.value || ""}
+					onChange={search.handleChange}
+					onBlur={onBlur}
 				/>
-				<button type="submit" className="search-form__button link" disabled={!search.isValid} />
+				<button
+					type="submit"
+					className="search-form__button link"
+					formNoValidate
+				/>
 			</div>
 			<div className="search-form__checkbox">
 				<label className="search-form__checkbox-label">
@@ -36,7 +62,8 @@ function SearchForm ({onSubmit, error, handleCheckbox, ...props}) {
 						type="checkbox"
 						id="checkbox"
 						name="checkbox"
-            onChange={handleCheckbox}
+						onChange={Checkbox}
+						checked={cheked}
 					/>
 					<span className="search-form__checkbox-span" />
 				</label>

@@ -9,14 +9,8 @@ function MoviesCard({ movie, newSavedMovies, deleteMovie, savedMovies }) {
       setIsCardLike(savedMovies.some(elem => elem.movieId === movie.movieId))}
 	}, [movie]);
 
-  //let isSave = false
-  //if (window.location.pathname === "/movies") {
-  //  isSave = savedMovies.some(elem => elem.movieId === movie.movieId)
-  //}
-
 	function handleLikeClick() {
 		setIsCardLike(!isCardLike);
-    console.log(isCardLike);
 		!isCardLike ? newSavedMovies(movie) : deleteMovie(movie);
 	}
 

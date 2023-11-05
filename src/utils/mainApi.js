@@ -12,14 +12,14 @@ class Api {
 
   //универсальный метод проверки запроса
   _request(url, options) {
-    return fetch(url, options).then(this._checkResponse)
+    return fetch(url, options)
   }
 
   //загрузка сохраненных фильмов с сервера
-	getInitialSavedMovies() {
+	getInitialSavedMovies(headers) {
 		//запрос на сервер на получение сохраненных фильмов
 		return this._request(`${this._url}/movies`, {
-			headers: this._headers,
+			headers: headers,
 			//получив промис проверяем статус
 		})
 	}
@@ -49,11 +49,11 @@ class Api {
 	}
 
 	//отправка на сервер новой карточки
-	addNewSavedMovies(formValues) {
+	addNewSavedMovies(formValues, headers) {
 		return fetch(`${this._url}/movies`, {
 			//метод для отправки данных
 			method: "POST",
-			headers: this._headers,
+			headers: headers,
 			body: JSON.stringify({
         country: formValues["country"],
         director: formValues["director"],
@@ -70,12 +70,12 @@ class Api {
 		})
 	}
 
-	deleteSavedMovies(place) {
+	deleteSavedMovies(place, headers) {
 		return fetch(`${this._url}/movies/${place._id}`, {
 			//метод для отправки данных
 			method: "DELETE",
       credentials: 'include',
-			headers: this._headers,
+			headers: headers,
 		})
 	}
 
@@ -85,7 +85,7 @@ class Api {
 const mainApi = new Api(
 	MAIN_API,
 	{
-    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+    'Authorization': localStorage.getItem("token"),
     'Content-Type': 'application/json',
 	},
   //функция проверки ответа от сервера

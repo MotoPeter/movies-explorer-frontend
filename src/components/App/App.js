@@ -5,7 +5,6 @@ import Header from "../Header/Header";
 import Main from "../Main/Main";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { AppContext } from "../../contexts/AppContext";
-import { api } from "../../utils/mainApi";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
@@ -22,6 +21,8 @@ import imgNone from "../../images/img-none.png";
 import { errorName } from "../../utils/checkResponse";
 import moviesApi from "../../utils/moviesApi";
 import mainApi from "../../utils/mainApi";
+import Preloader from "../Preloader/Preloader";
+import SubmitSearch from "../SubmitSearch/SubmitSeadch";
 
 function App() {
 	//данные пользователя
@@ -36,8 +37,6 @@ function App() {
 	const [isRegister, setIsRegister] = useState(false);
 	//переменная состояния загрузки
 	const [isLoading, setIsLoading] = useState(false);
-	// лайк карточки
-	const [isLiked, setIsLiked] = useState(false);
 	//массив сохраненных фильмов
 	//const [savedMovies, setSavedMovies] = useState([]);
 	//состояние логирования
@@ -48,8 +47,6 @@ function App() {
 	const [error, setError] = useState();
 	//стейт карточек с сервера всех
 	const [movies, setMovies] = useState([]);
-	//состояние загрузки карточек
-	const [isPreloader, setIsPreloader] = useState(false);
 	//состояние результата поиска
 	const [isSearchRezult, setIsSearchRezult] = useState(true);
 	//положение чекбокса на странице фильмов
@@ -68,22 +65,28 @@ function App() {
 		setError("");
 	}, [pathname]);
 
-//загрузка сохраненных карточек
-function getSavedMovies () {
-   mainApi.getInitialSavedMovies()
-     .then((res) => {
-      let savedMoviesOwner=[]
-      res.map((item) => {item.owner === currentUser._id && savedMoviesOwner.push(item);});
-      setSavedMovies(res.reverse());
-     })
-     .catch(console.error);
-  }
- 
+	//загрузка сохраненных карточек
+	function getSavedMovies() {
+		mainApi
+			.getInitialSavedMovies({
+				Authorization: localStorage.getItem("token"),
+				"Content-Type": "application/json",
+			})
+			.then(checkResponse)
+			.then((res) => {
+				setSavedMovies(res.reverse());
+			})
+			.catch(console.error);
+	}
 
+	//поис среди сохраненных карточек
+	function searchSavedMovies(search) {
+		//фильтруем по поиску
+		let filterSavedMovies = SubmitSearch(savedMovies, search);
+		setSavedMovies(filterSavedMovies.reverse());
+	}
 	// функция, которая принимает функцию запроса
 	function handleSubmit(request) {
-		// запускает прелоадер
-		setIsLoading(true);
 		//запускает функцию запроса
 		request()
 			.then((res) => {
@@ -106,8 +109,6 @@ function getSavedMovies () {
 
 	//при загрузке страницы проверяем токен в локал
 	useEffect(() => {
-    setCurrentUser({})
-    console.log(currentUser);
 		tokenCheck();
 	}, []);
 
@@ -126,7 +127,7 @@ function getSavedMovies () {
 						setCurrentUser(res);
 						//меняем состояние
 						setIsLoggedIn(true);
-            getSavedMovies()
+						getSavedMovies();
 						//переадресовываем на страницу с фильмами
 						inCaseRegister();
 					}
@@ -135,20 +136,30 @@ function getSavedMovies () {
 		}
 	};
 
-	function handleCheckbox() {
-		setIsCheckboxMovies(!isCheckboxMovies);
-	}
+	//function handleCheckbox() {
+	//	setIsCheckboxMovies(!isCheckboxMovies);
+	//}
 
 	//получение общего массива фильмов
 	function getMovies(search) {
+		//записываем в локал поисковый запрос
+		localStorage.setItem("localSearch", search);
+		// запускает прелоадер
+		setIsLoading(true);
 		moviesApi
 			.getMovies()
 			.then(checkResponse)
 			.then((res) => {
 				//фильтруем по поиску
-				let filterMovies = res.filter(({ nameRU }) =>
-					nameRU.toLowerCase().includes(search.toLowerCase())
-				);
+				let filterMovies = SubmitSearch(res, search);
+				//res.filter((item) => {
+				//	if (item.nameRU.toLowerCase().includes(search.toLowerCase())) {
+				//		return true;
+				//	}
+				//	if (item.nameEN.toLowerCase().includes(search.toLowerCase())) {
+				//		return true;
+				//	}
+				//});
 				let formatMovies = [];
 				//приводим массив в соответствие с моделью сервера
 				filterMovies.map((filterMovie) => {
@@ -164,17 +175,12 @@ function getSavedMovies () {
 						description: filterMovie.description,
 						nameRU: filterMovie.nameRU,
 						nameEN: filterMovie.nameEN,
-            ////добавляем параметр сохранен или нет
-            //isSaved: false,
 					};
 					formatMovies.push(formatMovie);
 				});
-        ////проверяем есть ли фильм среди сохраненных
-        //formatMovies.map((filterMovie) => {
-        // filterMovie.isSaved = savedMovies.some(elem => elem.movieId === filterMovie.movieId)
-        //})
 				//сохраняем в стейт полученный массив
 				setMovies(formatMovies);
+        localStorage.setItem('movies', JSON.stringify(formatMovies));
 				//если массив пустой, для отображения надписи
 				filterMovies.length == 0
 					? setIsSearchRezult(false)
@@ -182,17 +188,19 @@ function getSavedMovies () {
 			})
 			.catch((err) => {
 				setMoviesApiError(true);
+			})
+			.finally(() => {
+				setIsLoading(false);
 			});
 	}
 
-  //сщхранение карточки при лайке
+	//сщхранение карточки при лайке
 	function newSavedMovies(movie) {
-    //const newMovie = movie
-		////проверяем есть ли такой элемент в массиве
-    //const isMovieSavedMovies = savedMovies.some(elem => elem.id === movie.movieId)
-    //!isMovieSavedMovies &&
 		mainApi
-			.addNewSavedMovies(movie)
+			.addNewSavedMovies(movie, {
+				Authorization: localStorage.getItem("token"),
+				"Content-Type": "application/json",
+			})
 			.then(checkResponse)
 			.then((res) => {
 				setSavedMovies([res, ...savedMovies]);
@@ -202,26 +210,31 @@ function getSavedMovies () {
 			});
 	}
 
-  //удаление карточки из сохраненных
-  function deleteMovie(movie) {
-    mainApi
-			.deleteSavedMovies(movie)
+	//удаление карточки из сохраненных
+	function deleteMovie(movie) {
+		mainApi
+			.deleteSavedMovies(movie, {
+				Authorization: localStorage.getItem("token"),
+				"Content-Type": "application/json",
+			})
 			.then(checkResponse)
 			.then((res) => {
-  //удаляем из массива для отображения
-				setSavedMovies((state) => state.filter((c) => c._id !== movie._id));
+				//удаляем из массива для отображения
+				const newSavedMovies = savedMovies.filter((c) => c._id !== res._id);
+        setSavedMovies(newSavedMovies)
+        console.log(savedMovies, newSavedMovies);
 			})
 			.catch((err) => {
 				console.log(err);
 			});
-  }
+	}
 
-  //удаление карточки через дизлайк на странице фильмов
-  function deleteMovieFromMovies(movie) {
-    //по id находим карточку в массиве сохраненных и передаем функции удаления
-    const item = savedMovies.find(item => item.movieId === movie.movieId);
-    deleteMovie(item)
-  }
+	//удаление карточки через дизлайк на странице фильмов
+	function deleteMovieFromMovies(movie) {
+		//по id находим карточку в массиве сохраненных и передаем функции удаления
+		const item = savedMovies.find((item) => item.movieId === movie.movieId);
+		deleteMovie(item);
+	}
 
 	//функция обновления данных аккаунта
 	function handleUpdateUser(name, email) {
@@ -301,8 +314,11 @@ function getSavedMovies () {
 	const logOutProfile = () => {
 		//удаляем токен
 		localStorage.removeItem("token");
+		localStorage.removeItem("localSearch");
+    localStorage.removeItem('CheckboxMovies')
+    localStorage.removeItem('movies')
 		setIsLoggedIn(false);
-    setMovies([])
+		setMovies([]);
 		setCurrentUser({});
 		//переадресовываем на главную страницу
 		navigate("/", { replace: true });
@@ -390,15 +406,11 @@ function getSavedMovies () {
 										/>
 										<Movies
 											moviesSearch={movies}
-											isPreloader={isPreloader}
 											getMovies={getMovies}
 											isSearchRezult={isSearchRezult}
-											setIsSearchRezult={setIsSearchRezult}
-											handleCheckbox={handleCheckbox}
-											isCheckboxMovies={isCheckboxMovies}
 											newSavedMovies={newSavedMovies}
-                      deleteMovie={deleteMovieFromMovies}
-                      savedMovies={savedMovies}
+											deleteMovie={deleteMovieFromMovies}
+											savedMovies={savedMovies}
 										/>
 										<Footer />
 									</>
@@ -414,7 +426,11 @@ function getSavedMovies () {
 											isLoggedIn={isLoggedIn}
 											onNavPopup={handleNavPopup}
 										/>
-										<SavedMovies savedMovies={savedMovies} deleteMovie={deleteMovie} />
+										<SavedMovies
+											savedMovies={savedMovies}
+											deleteMovie={deleteMovie}
+											searchSavedMovies={searchSavedMovies}
+										/>
 										<Footer />
 									</>
 								</ProtectedRouteElement>
@@ -438,6 +454,7 @@ function getSavedMovies () {
 						isOpen={isInfoTooltipPopup ? "tooltip tooltip_openend" : "tooltip"}
 						name={"infoTooltip"}
 					/>
+					{isLoading && <Preloader />}
 				</div>
 			</CurrentUserContext.Provider>
 		</AppContext.Provider>
