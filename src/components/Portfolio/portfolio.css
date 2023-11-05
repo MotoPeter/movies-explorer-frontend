@@ -3,15 +3,15 @@
 	display: flex;
 	flex-direction: column;
 	max-width: 1280px;
-	margin: 0 auto;
 	box-sizing: border-box;
+	margin: 0 auto;
 }
 
 .portfolio__title {
 	margin: 0;
 	color: #8b8b8b;
 	font-size: 18px;
-	font-family: Inter;
+	font-family: "Inter", "Source Sans Pro", "Arial", sans-serif;
 	font-weight: 400;
 	line-height: 20px;
 	margin-bottom: 50px;
@@ -42,18 +42,20 @@
 	font-size: 30px;
 	font-weight: 400;
 	line-height: 50px;
+	letter-spacing: -1.2px;
+	display: inline-block;
 }
 
 .portfolio__link {
-	width: 29px;
 	height: 60px;
 	background: url(../../images/strelka.svg) no-repeat center;
 	align-items: center;
+	min-width: 29px;
 }
 
 @media screen and (max-width: 800px) {
 	.portfolio {
-		padding: 0 50px 90px;
+		padding: 17px 50px 90px;
 	}
 
 	.portfolio__title {
@@ -62,6 +64,7 @@
 
 	.portfolio__item {
 		padding-bottom: 10px;
+		margin-bottom: 19px;
 	}
 
 	.portfolio__subtitle {
@@ -69,13 +72,13 @@
 	}
 
 	.portfolio__link {
-		width: 27px;
+		min-width: 30px;
 	}
 }
 
 @media screen and (max-width: 500px) {
 	.portfolio {
-		padding: 0 14px 70px;
+		padding: 13px 14px 70px;
 	}
 
 	.portfolio__title {
@@ -86,16 +89,17 @@
 
 	.portfolio__item {
 		border-bottom: 1px solid #e6e6e6;
-		padding-bottom: 19px;
+		padding-bottom: 20px;
 	}
 
 	.portfolio__subtitle {
 		font-size: 18px;
 		line-height: 28px;
+		letter-spacing: -0.72px;
 	}
 
 	.portfolio__link {
-		width: 18px;
 		height: 28px;
+		min-width: 23px;
 	}
 }

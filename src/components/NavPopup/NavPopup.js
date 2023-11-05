@@ -32,39 +32,53 @@ function NavPopup({ isOpen }) {
 	}
 
 	return (
-		<div className={`popup ${isOpen}`} onClick={clickClosePopap}>
-			<div className="popup__container">
+		<section className={isOpen} onClick={clickClosePopap}>
+			<nav className="popup__container">
 				<button
 					type="button"
 					className="popup__close"
 					onClick={value.closeNavPopup}
 				/>
-				<Reference
-					classType="popup-opening"
-					classText="popup-text"
-					linkTo="/"
-					linkTitle="Главная"
-				/>
-				<Reference
-					classType="popup-opening"
-					classText="popup-text"
-					linkTitle="Фильмы"
-					linkTo={"movies"}
-				/>
-				<Reference
-					classType="popup-opening"
-					classText="popup-text"
-					linkTitle="Сохраненные фильмы"
-					linkTo={"saved-movies"}
-				/>
+				<div className="popup__content">
+					<Reference
+						classType="popup-opening"
+						classText={
+							window.location.pathname === "/"
+								? "popup-opening__text popup-opening__text_active"
+								: "popup-opening__text"
+						}
+						linkTo="/"
+						linkTitle="Главная"
+					/>
+					<Reference
+						classType="popup-opening"
+						classText={
+							window.location.pathname === "/movies"
+								? "popup-opening__text popup-opening__text_active"
+								: "popup-opening__text"
+						}
+						linkTitle="Фильмы"
+						linkTo={"movies"}
+					/>
+					<Reference
+						classType="popup-opening"
+						classText={
+							window.location.pathname === "/saved-movies"
+								? "popup-opening__text popup-opening__text_active"
+								: "popup-opening__text"
+						}
+						linkTitle="Сохраненные фильмы"
+						linkTo={"saved-movies"}
+					/>
+				</div>
 				<Reference
 					classType="popup-accaunt"
 					classText="popup-accaunt-text"
 					linkTitle="Аккаунт"
 					linkTo={"profile"}
 				/>
-			</div>
-		</div>
+			</nav>
+		</section>
 	);
 }
 

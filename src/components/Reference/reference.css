@@ -4,7 +4,7 @@
 }
 
 .link {
-  text-decoration: none;
+	text-decoration: none;
 }
 
 .popup-opening:hover {
@@ -14,29 +14,36 @@
 .link-page-404 {
 	margin: 0 auto;
 	color: #4285f4;
-	font-family: Inter;
+	font-family: "Inter", "Source Sans Pro", "Arial", sans-serif;
 	font-size: 14px;
 	font-style: normal;
 	font-weight: 400;
 	line-height: normal;
 	text-decoration: none;
 	max-width: 42px;
+	flex-shrink: 0;
+	margin-bottom: 46px;
 }
 
 .popup-opening {
 	padding-bottom: 7px;
-	margin-bottom: 25px;
+	margin-bottom: 22px;
 }
 
-.popup-text {
+.popup-opening__text {
 	color: white;
 	font-size: 18px;
-	font-family: Inter;
+	font-family: "Inter", "Source Sans Pro", "Arial", sans-serif;
 	font-weight: 500;
 	line-height: 18px;
 	word-wrap: break-word;
 	padding: 0;
 	margin: 0;
+	padding-bottom: 3px;
+}
+
+.popup-opening__text_active {
+	border-bottom: 2px solid #ffffff;
 }
 
 .link-accaunt {
@@ -65,7 +72,7 @@
 	padding: 0;
 	color: #fff;
 	font-feature-settings: "clig" off, "liga" off;
-	font-family: Inter;
+	font-family: "Inter", "Source Sans Pro", "Arial", sans-serif;
 	font-size: 13px;
 	font-style: normal;
 	font-weight: 500;
@@ -76,27 +83,27 @@
 .popup-accaunt {
 	display: flex;
 	justify-content: center;
-	margin-top: 600px;
+	flex-shrink: 0;
+	margin-bottom: 87px;
 }
 
 .popup-accaunt::after {
 	content: "";
 	width: 26px;
 	height: 26px;
-	transform: translateY(-25%);
+	transform: translateY(-25%) translateX(27%);
 	background-color: #0f4157;
 	background-image: url(../../images/img-accaunt.svg);
 	background-size: 12px 12px;
 	background-position: center;
 	background-repeat: no-repeat;
 	border-radius: 50%;
-	margin-left: 10px;
 }
 
 .popup-accaunt-text {
 	color: white;
 	font-size: 13px;
-	font-family: Inter;
+	font-family: "Inter", "Source Sans Pro", "Arial", sans-serif;
 	font-weight: 500;
 	line-height: 12px;
 	word-wrap: break-word;
@@ -126,21 +133,20 @@
 	border-radius: 50%;
 }
 
-.link__text-signup {
+.link__text {
 	margin: 0;
-	color: white;
 	font-size: 12px;
-	font-family: Inter;
+	font-family: "Inter", "Source Sans Pro", "Arial", sans-serif;
 	font-weight: 500;
+}
+
+.link__text_type_signup {
+	color: white;
 	line-height: 32px;
 }
 
-.link__text-signin {
+.link__text_type_signin {
 	color: black;
-	margin: 0;
-	font-size: 12px;
-	font-family: Inter;
-	font-weight: 500;
 	line-height: 16px;
 }
 
@@ -151,21 +157,26 @@
 .link__movies {
 	color: #fff;
 	text-align: right;
-	font-family: Inter;
+	font-family: "Inter", "Source Sans Pro", "Arial", sans-serif;
 	font-size: 13px;
 	font-style: normal;
-	font-weight: 500;
+	font-weight: 400;
 	line-height: 18px;
 	margin: 0;
 	padding: 0;
 }
 
+.link__movies_active {
+	font-weight: 500;
+}
+
 .link-auth-text {
 	margin: 0;
+	padding: 0;
 	margin-left: 6px;
 	color: #4285f4;
 	text-align: center;
-	font-family: Inter;
+	font-family: "Inter", "Source Sans Pro", "Arial", sans-serif;
 	font-size: 14px;
 	font-style: normal;
 	font-weight: 400;
@@ -183,11 +194,15 @@
 
 	.link-auth-text {
 		margin-left: 7px;
-		font-size: 12px;
+		font-size: 14px;
 	}
 
 	.link-accaunt {
 		display: none;
+	}
+
+	.link-page-404 {
+		margin-bottom: 208px;
 	}
 }
 
@@ -195,17 +210,18 @@
 	.link-page-404 {
 		font-size: 12px;
 		max-width: 36px;
+		margin-bottom: 18px;
 	}
 
-	.popup-text {
+	.popup-opening__text {
 		font-size: 18px;
-		font-family: Inter;
 		font-weight: 500;
+		padding-bottom: 8px;
 	}
 
 	.popup-opening {
 		padding-bottom: 7px;
-		margin-bottom: 21px;
+		margin-bottom: 12px;
 	}
 
 	.popup-accaunt {
@@ -217,19 +233,24 @@
 		margin-left: 0;
 	}
 
-	.link__text-signup {
+	.link__text_type_signup {
 		margin: 0;
 		color: white;
 		font-size: 10px;
 		line-height: 24px;
 	}
 
-	.link__text-signin {
+	.link__text_type_signin {
 		font-size: 10px;
 		line-height: 16px;
 	}
 
 	.link-logo-sign {
 		margin: auto;
+	}
+
+	.link-auth-text {
+		font-size: 12px;
+		line-height: normal;
 	}
 }

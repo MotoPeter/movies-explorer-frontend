@@ -34,8 +34,7 @@ const AboutProject = () => {
 
 					<div className="about__graph-line">
 						<div
-							className="about__graph-title"
-							style={{ backgroundColor: "#303030", color: "white" }}
+							className="about__graph-title about__graph-title_theme_grey"
 						>
 							4 недели
 						</div>

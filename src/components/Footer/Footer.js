@@ -3,11 +3,11 @@ import "./footer.css";
 const Footer = () => {
 	return (
 		<footer className="footer">
-			<h3 className="footer__title">
+			<h2 className="footer__title">
 				Учебный проект Яндекс.Практикум х BeatFilm.
-			</h3>
+			</h2>
 			<div className="footer__content">
-				<p className="footer__copyright">&copy;{new Date().getFullYear()}</p>
+				<p className="footer__copyright">&copy; {new Date().getFullYear()}</p>
 				<nav>
 					<ul className="footer__link-list">
 						<li>

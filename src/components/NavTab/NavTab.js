@@ -8,14 +8,14 @@ function NavTab() {
 				<li className="nav-tab__item">
 					<Reference
 						linkTo="/sign-up"
-						classText="link__text-signup"
+						classText="link__text link__text_type_signup"
 						linkTitle="Регистрация"
 					/>
 				</li>
 				<li className="nav-tab__item">
 					<Reference
 						linkTo="/sign-in"
-						classText="link__text-signin"
+						classText="link__text link__text_type_signin"
 						linkTitle="Войти"
 					/>
 				</li>

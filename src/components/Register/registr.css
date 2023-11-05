@@ -1,12 +1,17 @@
 .register {
-	max-width: 396px;
-	margin: 70px auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	min-height: 100vh;
+}
+
+.register__content {
+	margin: 71px auto 0;
+	width: 396px;
 }
 
 .register__text {
-	display: flex;
-	justify-content: center;
-	width: 100%;
+	font-family: "Inter", "Source Sans Pro", "Arial", sans-serif;
 	margin: 0;
 	text-align: center;
 	color: #a0a0a0;
@@ -14,29 +19,30 @@
 	line-height: 16px;
 }
 
-@media screen and (max-width: 800px) {
-	.login {
-		margin: 232px auto;
-	}
+.register__footer {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	margin: 0;
+}
 
-	.login__text {
+@media screen and (max-width: 800px) {
+	.register__text {
 		color: #8b8b8b;
 	}
-	.register {
-		margin: 231px auto;
-	}
+  .register__content {
+    margin: 230px auto 0;
+    width: 396px;
+  }
 }
 
 @media screen and (max-width: 550px) {
-	.register {
-		margin: 56px auto;
-	}
-	.login {
+	.register__content {
 		max-width: 260px;
 		margin: 56px auto 30px;
 	}
 
-	.login__text {
+	.register__text {
 		display: flex;
 		justify-content: center;
 		width: 100%;
@@ -53,8 +59,9 @@
 		text-decoration: none;
 		transition: opacity 0.2s linear;
 	}
-	.login__text {
+	.register__text {
 		font-size: 12px;
 		line-height: normal;
+		width: 145px;
 	}
 }

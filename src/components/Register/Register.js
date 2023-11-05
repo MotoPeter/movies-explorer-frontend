@@ -7,21 +7,24 @@ import Reference from "../Reference/Reference";
 const Registr = ({ handleRegistrSubmit }) => {
 	return (
 		<section className="register">
-			<Header />
-			<AuthForm
-				onSubmit={handleRegistrSubmit}
-				title={"Добро пожаловать!"}
-				buttonSubmitText={"Зарегистрироваться"}
-			/>
-			<div></div>
-			<p className="register__text">
-				Уже зарегистрированы?
-				<Reference
-					linkTo="/sign-in"
-					classText="link-auth-text"
-					linkTitle="Войти"
-				/>
-			</p>
+			<article className="register__content">
+				<Header />
+				<main>
+					<AuthForm
+						onSubmit={handleRegistrSubmit}
+						title={"Добро пожаловать!"}
+						buttonSubmitText={"Зарегистрироваться"}
+					/>
+					<div className="register__footer">
+						<p className="register__text">Уже зарегистрированы?</p>
+						<Reference
+							linkTo="/sign-in"
+							classText="link-auth-text"
+							linkTitle="Войти"
+						/>
+					</div>
+				</main>
+			</article>
 		</section>
 	);
 };

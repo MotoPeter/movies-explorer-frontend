@@ -1,9 +1,10 @@
 .header {
 	background-color: #073042;
 	width: 100%;
+	align-self: start;
 }
 
-.header-black {
+.header_theme_black {
 	background-color: #202020;
 	width: 100%;
 }
@@ -20,7 +21,7 @@
 
 .header__nav-sign {
 	width: 100%;
-	margin: 0;
+	margin: auto;
 	padding: 0;
 	display: flex;
 	justify-content: space-between;
@@ -43,10 +44,6 @@
 	display: none;
 }
 
-.nav-popup-black {
-	display: none;
-}
-
 .nav-movies__popup:hover {
 	opacity: 0.6;
 	cursor: pointer;
@@ -64,15 +61,8 @@
 		margin-top: 15px;
 	}
 
-	.nav-popup-black {
-		display: block;
-		border: none;
-		background-image: url("../../images/nav_burger.svg");
+	.nav-popup_theme_black {
 		background-color: #202020;
-		width: 44px;
-		height: 44px;
-		margin-left: auto;
-		margin-top: 15px;
 	}
 
 	.header__nav {

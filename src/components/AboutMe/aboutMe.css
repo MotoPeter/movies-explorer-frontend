@@ -1,7 +1,8 @@
 .about-me {
-	padding: 121px 70px 101px;
+	padding: 103px 70px 101px;
 	color: white;
 	max-width: 1280px;
+	box-sizing: border-box;
 	margin: 0 auto;
 }
 
@@ -33,13 +34,14 @@
 	font-size: 50px;
 	font-weight: 400;
 	line-height: 58px;
-	margin-bottom: 18px;
+	margin-bottom: 19px;
+	letter-spacing: -2px;
 }
 
 .about-me__occupation {
 	margin: 0;
 	font-size: 18px;
-	font-family: Inter;
+	font-family: "Inter", "Source Sans Pro", "Arial", sans-serif;
 	font-weight: 500;
 	line-height: 20px;
 	margin-bottom: 26px;
@@ -49,7 +51,7 @@
 	max-width: 600px;
 	margin: 0;
 	font-size: 14px;
-	font-family: Inter;
+	font-family: "Inter", "Source Sans Pro", "Arial", sans-serif;
 	font-weight: 400;
 	line-height: 22px;
 	margin-bottom: 99px;
@@ -58,13 +60,13 @@
 .about-me__link {
 	color: white;
 	font-size: 14px;
-	font-family: Inter;
+	font-family: "Inter", "Source Sans Pro", "Arial", sans-serif;
 	font-weight: 500;
 }
 
 @media screen and (max-width: 800px) {
 	.about-me {
-		padding: 88px 50px;
+		padding: 75px 50px;
 	}
 
 	.about-me__image {
@@ -82,7 +84,6 @@
 	.about-me__occupation {
 		margin: 0;
 		font-size: 12px;
-		font-family: Inter;
 		font-weight: 500;
 		line-height: 18px;
 		margin-bottom: 20px;
@@ -91,7 +92,6 @@
 	.about-me__biography {
 		max-width: 364px;
 		font-size: 12px;
-		font-family: Inter;
 		font-weight: 400;
 		line-height: 18px;
 		margin-bottom: 87px;
@@ -100,7 +100,7 @@
 
 @media screen and (max-width: 500px) {
 	.about-me {
-		padding: 70px 14px;
+		padding: 58px 14px;
 	}
 
 	.about-me__content {
@@ -120,12 +120,13 @@
 		max-height: 352px;
 		aspect-ratio: 292 / 352;
 		margin-left: 0;
-		margin-bottom: 40px;
+		margin-bottom: 38px;
 	}
 
 	.about-me__name {
 		font-size: 30px;
-		margin-bottom: 20px;
+		margin-bottom: 18px;
+		letter-spacing: -1.2px;
 	}
 
 	.about-me__occupation {
