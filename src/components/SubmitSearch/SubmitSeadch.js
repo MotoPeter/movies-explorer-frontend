@@ -1,4 +1,4 @@
-//хук сортировки массива по поиску
+//функция сортировки массива по поиску
 export default function useSubmitSearch(arr, search) {
   //фильтруем по поиску
   let filterMovies = arr.filter((item) => {

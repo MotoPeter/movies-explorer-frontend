@@ -15,8 +15,8 @@ export function useFormValidation(value, validations) {
 	const [isNameError, setIsNameError] = React.useState(false);
 	//все поля
 	const [isValid, setIsValid] = React.useState(false);
-  //проверка изменений
-  const [ isChanges, setIsChanges] = React.useState(false)
+	//проверка изменений
+	const [isChanges, setIsChanges] = React.useState(false);
 
 	//срабатывает при изменении значения инпута
 	useEffect(() => {
@@ -55,7 +55,7 @@ export function useFormValidation(value, validations) {
 						? setIsNameError(true)
 						: setIsNameError(false);
 					break;
-          case "isChanges":					
+				case "isChanges":
 					value === validations[validation]
 						? setIsChanges(false)
 						: setIsChanges(true);
@@ -64,7 +64,7 @@ export function useFormValidation(value, validations) {
 		}
 	}, [value]);
 
-  //при изменении любого из параметров валидации проверяем общую валидность инпута
+	//при изменении любого из параметров валидации проверяем общую валидность инпута
 	useEffect(() => {
 		if (
 			isEmpty ||
@@ -77,7 +77,22 @@ export function useFormValidation(value, validations) {
 		} else {
 			setIsValid(true);
 		}
-	}, [isEmpty, minLengthError, maxLengthError, isEmailError, isNameError, isChanges]);
+	}, [
+		isEmpty,
+		minLengthError,
+		maxLengthError,
+		isEmailError,
+		isNameError,
+		isChanges,
+	]);
 
-	return { isEmpty, minLengthError, maxLengthError, isEmailError, isNameError, isValid, isChanges };
+	return {
+		isEmpty,
+		minLengthError,
+		maxLengthError,
+		isEmailError,
+		isNameError,
+		isValid,
+		isChanges,
+	};
 }

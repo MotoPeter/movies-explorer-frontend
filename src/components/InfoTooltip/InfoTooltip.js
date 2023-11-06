@@ -1,9 +1,8 @@
 import React from "react";
 import { AppContext } from "../../contexts/AppContext";
 import "./infoTooltip.css";
-import Reference from "../Reference/Reference";
 
-const InfoTooltip = ({ title, onClose, name, isOpen, imgSrc, imgAlt }) => {
+const InfoTooltip = ({ title, onClose, isOpen, imgSrc, imgAlt }) => {
 	//функция закрытия попапа из контекста
 	const value = React.useContext(AppContext);
 
@@ -29,31 +28,19 @@ const InfoTooltip = ({ title, onClose, name, isOpen, imgSrc, imgAlt }) => {
 	}, [isOpen]);
 
 	return (
-		<section className={ isOpen } onClick={clickClosePopap}>
+		<section className={isOpen} onClick={clickClosePopap}>
 			<div className="tooltip__content">
 				<button
 					type="button"
 					className="tooltip__close"
 					onClick={value.closeNavPopup}
-				>X</button>
+				>
+					X
+				</button>
 				<img className="tooltip__img" src={imgSrc} alt={imgAlt}></img>
 				<h3 className="tooltip__title">{title}</h3>
 			</div>
 		</section>
-		//	<div
-		//	className={`popup ${isOpen} popup_value_${name}`}
-		//	onClick={clickClosePopap}
-		//>
-		//	<div className="tooltip">
-		//	{/*<button
-		//		type="button"
-		//		className="popup__close button button_condition_hover"
-		//		onClick={value.closeNavPopup}
-		//	></button>*/}
-		//		<img className="tooltip__img" src={imgSrc} alt={imgAlt}></img>
-		//		<h3 className="tooltip__title">{title}</h3>
-		//	</div>
-		//</div>
 	);
 };
 

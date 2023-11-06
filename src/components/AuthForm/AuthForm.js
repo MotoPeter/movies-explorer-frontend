@@ -1,10 +1,8 @@
 import React from "react";
-//import { useForm } from "../../hooks/useForm";
 import "./authForm.css";
 import { useInput } from "../../hooks/useInput";
 
 const AuthForm = ({ onSubmit, title, buttonSubmitText, error, ...props }) => {
-
 	//ввод имя
 	const name = useInput("", {
 		isEmpty: true,

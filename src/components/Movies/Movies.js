@@ -11,7 +11,7 @@ const Movies = ({
 	newSavedMovies,
 	deleteMovie,
 	savedMovies,
-  isMoviesApiError
+	isMoviesApiError,
 }) => {
 	//массив оставшихся карточек
 	const [isRemaningMovies, setIsRemaningMovies] = useState(null);
@@ -27,10 +27,10 @@ const Movies = ({
 	//колличество карточек начальной загрузки и при нажатии еще
 	const { splittingMovies } = useResize();
 
-  //массив фильмов из локала
+	//массив фильмов из локала
 	const defaultIsMovies = JSON.parse(window.localStorage.getItem("movies"));
 
-  //если в локале есть значение кнопки чекбокса, то значит он был включен
+	//если в локале есть значение кнопки чекбокса, то значит он был включен
 	useEffect(() => {
 		if (localStorage.getItem("CheckboxMovies")) {
 			const CheckboxOn = Boolean(localStorage.getItem("CheckboxMovies"));
@@ -51,23 +51,23 @@ const Movies = ({
 
 	//в зависимости от значения хука ширины экрана присваиваем значения переменным состояния
 	useEffect(() => {
-    //при включении кнопки сохраняем значение, при выключении удаляем
+		//при включении кнопки сохраняем значение, при выключении удаляем
 		isCheckboxMovies
 			? localStorage.setItem("CheckboxMovies", isCheckboxMovies)
 			: localStorage.removeItem("CheckboxMovies");
-      //если в локале нет сохраненого массива
+		//если в локале нет сохраненого массива
 		if (!defaultIsMovies) {
-      //получаем пустой массив
+			//получаем пустой массив
 			splitArr(moviesSearch, splittingMovies);
 		} else {
-      //если есть его отправляем на разбивку
+			//если есть его отправляем на разбивку
 			splitArr(defaultIsMovies, splittingMovies);
 		}
 	}, [moviesSearch, splittingMovies, isCheckboxMovies, isCheckboxRezult]);
 
 	//функция разбивки массива и отображения кнопки еще
 	function splitArr(arr, splittingMovies) {
-    //фильтруем по кнопке чекбокса
+		//фильтруем по кнопке чекбокса
 		isCheckboxMovies
 			? (arr = arr.filter(({ duration }) => duration <= 40))
 			: (arr = arr);

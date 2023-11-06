@@ -18,7 +18,6 @@ import Page404 from "../page404/Page404";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
 import imgOk from "../../images/img-ok.png";
 import imgNone from "../../images/img-none.png";
-import { errorName } from "../../utils/checkResponse";
 import moviesApi from "../../utils/moviesApi";
 import mainApi from "../../utils/mainApi";
 import Preloader from "../Preloader/Preloader";
@@ -37,8 +36,6 @@ function App() {
 	const [isRegister, setIsRegister] = useState(false);
 	//переменная состояния загрузки
 	const [isLoading, setIsLoading] = useState(false);
-	//массив сохраненных фильмов
-	//const [savedMovies, setSavedMovies] = useState([]);
 	//состояние логирования
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	//стейс открытия тултипа
@@ -50,7 +47,7 @@ function App() {
 	//состояние результата поиска
 	const [isSearchRezult, setIsSearchRezult] = useState(true);
 	//текст тултипа
-	const [textTooltip, setTextTooltip] = useState('');
+	const [textTooltip, setTextTooltip] = useState("");
 	//состояние ошибки при подключении к серверу с фильмами
 	const [isMoviesApiError, setIsMoviesApiError] = useState(false);
 	//массив сохраненых карточек
@@ -85,6 +82,7 @@ function App() {
 		let filterSavedMovies = SubmitSearch(savedMovies, search);
 		setSavedMovies(filterSavedMovies.reverse());
 	}
+
 	// функция, которая принимает функцию запроса
 	function handleSubmit(request) {
 		//запускает функцию запроса
@@ -92,7 +90,7 @@ function App() {
 			.then((res) => {
 				setIsLoading(false);
 				setIsRegister(true);
-        setTextTooltip('Данные успешно обновлены!')
+				setTextTooltip("Данные успешно обновлены!");
 				tooltipOpen();
 				inCaseRegister();
 			})
@@ -137,10 +135,6 @@ function App() {
 		}
 	};
 
-	//function handleCheckbox() {
-	//	setIsCheckboxMovies(!isCheckboxMovies);
-	//}
-
 	//получение общего массива фильмов
 	function getMovies(search) {
 		//записываем в локал поисковый запрос
@@ -153,16 +147,8 @@ function App() {
 			.then((res) => {
 				//фильтруем по поиску
 				let filterMovies = SubmitSearch(res, search);
-				//res.filter((item) => {
-				//	if (item.nameRU.toLowerCase().includes(search.toLowerCase())) {
-				//		return true;
-				//	}
-				//	if (item.nameEN.toLowerCase().includes(search.toLowerCase())) {
-				//		return true;
-				//	}
-				//});
 				let formatMovies = [];
-				//приводим массив в соответствие с моделью сервера
+				//приводим массив в соответствие с моделью моего сервера
 				filterMovies.map((filterMovie) => {
 					let formatMovie = {
 						image: "https://api.nomoreparties.co" + filterMovie.image.url,
@@ -181,17 +167,15 @@ function App() {
 				});
 				//сохраняем в стейт полученный массив
 				setMovies(formatMovies);
-        localStorage.setItem('movies', JSON.stringify(formatMovies));
+				localStorage.setItem("movies", JSON.stringify(formatMovies));
 				//если массив пустой, для отображения надписи
 				filterMovies.length == 0
 					? setIsSearchRezult(false)
 					: setIsSearchRezult(true);
-          //сбрасываем состояние ошибки
-          //setIsMoviesApiError(false)
 			})
 			.catch((err) => {
 				//состояние ошибки
-				setIsMoviesApiError(true)
+				setIsMoviesApiError(true);
 				//записываем в стейт ошибку
 			})
 			.finally(() => {
@@ -199,7 +183,7 @@ function App() {
 			});
 	}
 
-	//сщхранение карточки при лайке
+	//сохранение карточки при лайке
 	function newSavedMovies(movie) {
 		mainApi
 			.addNewSavedMovies(movie, {
@@ -225,7 +209,7 @@ function App() {
 			.then(checkResponse)
 			.then((res) => {
 				//удаляем из массива для отображения
-        setSavedMovies((state) => state.filter((c) => c._id !== movie._id))
+				setSavedMovies((state) => state.filter((c) => c._id !== movie._id));
 			})
 			.catch((err) => {
 				console.log(err);
@@ -272,14 +256,13 @@ function App() {
 			.then((res) => {
 				//стейт регистарции
 				setIsRegister(true);
-        setTextTooltip('Вы успешно зарегистрировались!')
+				setTextTooltip("Вы успешно зарегистрировались!");
 				//открываем тултип
 				tooltipOpen();
 				//запрашиваем токен
 				handleLoginSubmit(name, email, password);
 			})
 			.catch((err) => {
-				console.log(errorName);
 				//стейт регистрации
 				setIsRegister(false);
 				//открываем тултип
@@ -292,8 +275,7 @@ function App() {
 
 	//функция авторизации
 	const handleLoginSubmit = (name, email, password) => {
-		//const { password, email } = formValue
-		//	//обращение к апи
+		//обращение к апи
 		moviesAuth
 			.authorization(password, email)
 			.then(checkResponse)
@@ -319,9 +301,9 @@ function App() {
 		//удаляем токен
 		localStorage.removeItem("token");
 		localStorage.removeItem("localSearch");
-    localStorage.removeItem('CheckboxMovies')
-    localStorage.removeItem('movies')
-    localStorage.removeItem("location");
+		localStorage.removeItem("CheckboxMovies");
+		localStorage.removeItem("movies");
+		localStorage.removeItem("location");
 		setIsLoggedIn(false);
 		setMovies([]);
 		setCurrentUser({});
@@ -357,7 +339,7 @@ function App() {
 			<CurrentUserContext.Provider value={currentUser}>
 				<div className="app">
 					<Routes>
-          <Route
+						<Route
 							path="/"
 							element={
 								<>
@@ -416,7 +398,7 @@ function App() {
 											newSavedMovies={newSavedMovies}
 											deleteMovie={deleteMovieFromMovies}
 											savedMovies={savedMovies}
-                      isMoviesApiError={isMoviesApiError}
+											isMoviesApiError={isMoviesApiError}
 										/>
 										<Footer />
 									</>

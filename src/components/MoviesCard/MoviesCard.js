@@ -2,22 +2,28 @@ import { useEffect, useState } from "react";
 import "./moviesCard.css";
 
 function MoviesCard({ movie, newSavedMovies, deleteMovie, savedMovies }) {
+	//кнопка лайка
 	const [isCardLike, setIsCardLike] = useState(false);
-  
-  useEffect(() => {
+
+	//для страницы всех фильмов проверяем лайки
+	useEffect(() => {
 		if (window.location.pathname === "/movies") {
-      setIsCardLike(savedMovies.some(elem => elem.movieId === movie.movieId))}
+			setIsCardLike(savedMovies.some((elem) => elem.movieId === movie.movieId));
+		}
 	}, [movie]);
 
+	//по нажатию лайка
 	function handleLikeClick() {
 		setIsCardLike(!isCardLike);
 		!isCardLike ? newSavedMovies(movie) : deleteMovie(movie);
 	}
 
-  function handleDelClick() {
-		deleteMovie(movie)
+	//по нажатию удаления
+	function handleDelClick() {
+		deleteMovie(movie);
 	}
 
+	//функция пересчета времени
 	function getMovieDuration(min) {
 		return `${Math.floor(min / 60)}ч ${min % 60}м`;
 	}
@@ -32,7 +38,7 @@ function MoviesCard({ movie, newSavedMovies, deleteMovie, savedMovies }) {
 			>
 				<img
 					className="card__image"
-					src={movie.image }
+					src={movie.image}
 					alt={`кадр из фильма ${movie.nameRU}`}
 				></img>
 			</a>
@@ -46,7 +52,11 @@ function MoviesCard({ movie, newSavedMovies, deleteMovie, savedMovies }) {
 					<h2 className="card__title-text">{movie.nameRU}</h2>
 				</a>
 				{window.location.pathname !== "/movies" ? (
-					<button type="button" className="card__button-del link" onClick={handleDelClick} />
+					<button
+						type="button"
+						className="card__button-del link"
+						onClick={handleDelClick}
+					/>
 				) : (
 					<button
 						type="button"

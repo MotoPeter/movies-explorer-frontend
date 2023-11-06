@@ -14,7 +14,7 @@ const Registr = ({ handleRegistrSubmit, error }) => {
 						onSubmit={handleRegistrSubmit}
 						title={"Добро пожаловать!"}
 						buttonSubmitText={"Зарегистрироваться"}
-            error={error}
+						error={error}
 					/>
 					<div className="register__footer">
 						<p className="register__text">Уже зарегистрированы?</p>

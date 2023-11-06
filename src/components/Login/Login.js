@@ -4,7 +4,7 @@ import AuthForm from "../AuthForm/AuthForm";
 import "./login.css";
 import Reference from "../Reference/Reference";
 
-const Login = ({ handleLoginSubmit, error}) => {
+const Login = ({ handleLoginSubmit, error }) => {
 	return (
 		<section className="login">
 			<article className="login__content">
@@ -14,7 +14,7 @@ const Login = ({ handleLoginSubmit, error}) => {
 						onSubmit={handleLoginSubmit}
 						title={"Рады видеть!"}
 						buttonSubmitText={"Войти"}
-            error={error}
+						error={error}
 					/>
 					<div className="login__footer">
 						<p className="login__text">Ещё не зарегистрированы?</p>

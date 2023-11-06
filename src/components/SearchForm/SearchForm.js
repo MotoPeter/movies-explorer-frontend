@@ -6,7 +6,7 @@ function SearchForm({ onSubmit, error, handleCheckbox, cheked, ...props }) {
 	//сабмит
 	const [isSubmit, setIsSabmit] = React.useState(false);
 
-  //получаем значение поиска
+	//получаем сохраненое значение поиска
 	const defaultSearh = window.localStorage.getItem("localSearch");
 
 	//ввод поиска
@@ -21,6 +21,7 @@ function SearchForm({ onSubmit, error, handleCheckbox, cheked, ...props }) {
 		setIsSabmit(false);
 	};
 
+	//кнопка чекбокса
 	const Checkbox = () => {
 		handleCheckbox();
 	};

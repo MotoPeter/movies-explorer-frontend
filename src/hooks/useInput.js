@@ -15,7 +15,7 @@ export const useInput = (initialValue, validations) => {
 		setValue(event.target.value);
 	};
 
-  //функция фокуса инпута
+	//функция фокуса инпута
 	const onBlur = (event) => {
 		setIsDerty(true);
 	};

@@ -1,3 +1,3 @@
 export const MOVIES_URL = "https://api.nomoreparties.co";
 
-export const MAIN_API = "http://localhost:3001";
+export const MAIN_API = "http://api.me.motopeter.nomoredomainsrocks.ru";

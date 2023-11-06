@@ -33,9 +33,7 @@ const AboutProject = () => {
 					</div>
 
 					<div className="about__graph-line">
-						<div
-							className="about__graph-title about__graph-title_theme_grey"
-						>
+						<div className="about__graph-title about__graph-title_theme_grey">
 							4 недели
 						</div>
 						<p className="about__graph-subtitle">Front-end</p>
