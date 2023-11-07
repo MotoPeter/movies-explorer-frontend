@@ -1,7 +1,7 @@
 import "./moviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
-function MoviesCardList({ movies, newSavedMovies, deleteMovie, savedMovies }) {
+function MoviesCardList({ movies, newSavedMovies, deleteMovie, savedMovies, }) {
 	return (
 		<section className="grid-places">
 			{movies.map((movie) => (

@@ -84,7 +84,7 @@ function App() {
 	}
 
 	// функция, которая принимает функцию запроса
-	function handleSubmit(request) {
+	function handleSubmit(request, setVisibleButton) {
 		//запускает функцию запроса
 		request()
 			.then((res) => {
@@ -92,7 +92,8 @@ function App() {
 				setIsRegister(true);
 				setTextTooltip("Данные успешно обновлены!");
 				tooltipOpen();
-				inCaseRegister();
+        setVisibleButton(false)
+				navigate("/profile", { replace: true });
 			})
 			// ловит ошибку
 			.catch((err) => {
@@ -184,7 +185,7 @@ function App() {
 	}
 
 	//сохранение карточки при лайке
-	function newSavedMovies(movie) {
+	function newSavedMovies(movie, setIsCardLike) {
 		mainApi
 			.addNewSavedMovies(movie, {
 				Authorization: localStorage.getItem("token"),
@@ -193,6 +194,7 @@ function App() {
 			.then(checkResponse)
 			.then((res) => {
 				setSavedMovies([res, ...savedMovies]);
+        setIsCardLike(true)
 			})
 			.catch((err) => {
 				console.log(err);
@@ -200,7 +202,7 @@ function App() {
 	}
 
 	//удаление карточки из сохраненных
-	function deleteMovie(movie) {
+	function deleteMovie(movie, setIsCardLike) {
 		mainApi
 			.deleteSavedMovies(movie, {
 				Authorization: localStorage.getItem("token"),
@@ -210,6 +212,7 @@ function App() {
 			.then((res) => {
 				//удаляем из массива для отображения
 				setSavedMovies((state) => state.filter((c) => c._id !== movie._id));
+        setIsCardLike(false)
 			})
 			.catch((err) => {
 				console.log(err);
@@ -217,14 +220,14 @@ function App() {
 	}
 
 	//удаление карточки через дизлайк на странице фильмов
-	function deleteMovieFromMovies(movie) {
+	function deleteMovieFromMovies(movie, setIsCardLike) {
 		//по id находим карточку в массиве сохраненных и передаем функции удаления
 		const item = savedMovies.find((item) => item.movieId === movie.movieId);
-		deleteMovie(item);
+		deleteMovie(item, setIsCardLike);
 	}
 
 	//функция обновления данных аккаунта
-	function handleUpdateUser(name, email) {
+	function handleUpdateUser(name, email, setVisibleButton) {
 		//обращение к апи и запись результата в каррентюзер
 		function makeRequest() {
 			return moviesAuth
@@ -233,7 +236,7 @@ function App() {
 				.then(setCurrentUser);
 		}
 		//передаем функцию запроса
-		handleSubmit(makeRequest);
+		handleSubmit(makeRequest, setVisibleButton);
 	}
 
 	//функция проверки ответа от сервера и записи текста ошибки

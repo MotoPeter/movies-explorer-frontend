@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./moviesCard.css";
 
-function MoviesCard({ movie, newSavedMovies, deleteMovie, savedMovies }) {
+function MoviesCard({ movie, newSavedMovies, deleteMovie, savedMovies, }) {
 	//кнопка лайка
 	const [isCardLike, setIsCardLike] = useState(false);
 
@@ -10,17 +10,17 @@ function MoviesCard({ movie, newSavedMovies, deleteMovie, savedMovies }) {
 		if (window.location.pathname === "/movies") {
 			setIsCardLike(savedMovies.some((elem) => elem.movieId === movie.movieId));
 		}
-	}, [movie]);
+	}, [movie, savedMovies]);
 
 	//по нажатию лайка
 	function handleLikeClick() {
-		setIsCardLike(!isCardLike);
-		!isCardLike ? newSavedMovies(movie) : deleteMovie(movie);
+		//setIsCardLike(!isCardLike);
+		!isCardLike ? newSavedMovies(movie, setIsCardLike) : deleteMovie(movie, setIsCardLike);
 	}
 
 	//по нажатию удаления
 	function handleDelClick() {
-		deleteMovie(movie);
+		deleteMovie(movie, setIsCardLike);
 	}
 
 	//функция пересчета времени

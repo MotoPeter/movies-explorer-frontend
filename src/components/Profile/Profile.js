@@ -32,7 +32,7 @@ const Profile = ({ handleNavPopup, logOutProfile, onSubmit, error }) => {
 	//сабмит кнопки
 	const handleProfilSubmit = (evt) => {
 		evt.preventDefault();
-		onSubmit(name.value, email.value);
+		onSubmit(name.value, email.value, setVisibleButton);
 		//при сабмите отправка обновленных данных
 	};
 
