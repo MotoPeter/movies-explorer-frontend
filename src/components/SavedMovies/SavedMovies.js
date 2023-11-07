@@ -13,11 +13,11 @@ const SavedMovies = ({ savedMovies, deleteMovie }) => {
 	const [savedMoviesRezult, setSavedMoviesRezult] = React.useState([]);
 	const [savedMoviesCheckboxRezult, setSavedMoviesCheckboxRezult] =
 		React.useState([]);
-
-    let searchText = ''
+    const[searchText, setSearchText] = React.useState('')
 
 	React.useEffect(() => {
 		setSavedMoviesRezult(savedMovies);
+    searchSavedMovies(searchText);
 	}, [savedMovies]);
 
 	//кнопка чекбокса
@@ -26,14 +26,15 @@ const SavedMovies = ({ savedMovies, deleteMovie }) => {
 	};
 
 	const searchSavedMovies = (search) => {
-    searchText=search
+    setSearchText(search)
 		let searchRezultSavedMovies = SubmitSearch(savedMovies, search);
 		setSavedMoviesRezult(searchRezultSavedMovies);
 	};
 
-  React.useEffect(() => {
-    searchSavedMovies(searchText);
-	}, [savedMovies]);
+  //React.useEffect(() => {
+  //  console.log(searchText);
+  //  searchSavedMovies(searchText);
+	//}, [savedMovies]);
 
 	//проверка длинны массива при изменении кнопки чекбокса
 	const checkSavedMoviesLength = (moviesSearch) => {
