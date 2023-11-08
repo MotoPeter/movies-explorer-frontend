@@ -49,6 +49,11 @@
 	cursor: pointer;
 }
 
+.nav-popup:hover {
+	opacity: 0.6;
+	cursor: pointer;
+}
+
 @media screen and (max-width: 800px) {
 	.nav-popup {
 		display: block;

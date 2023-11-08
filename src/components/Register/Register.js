@@ -4,7 +4,7 @@ import AuthForm from "../AuthForm/AuthForm";
 import "./registr.css";
 import Reference from "../Reference/Reference";
 
-const Registr = ({ handleRegistrSubmit }) => {
+const Registr = ({ handleRegistrSubmit, error }) => {
 	return (
 		<section className="register">
 			<article className="register__content">
@@ -14,6 +14,7 @@ const Registr = ({ handleRegistrSubmit }) => {
 						onSubmit={handleRegistrSubmit}
 						title={"Добро пожаловать!"}
 						buttonSubmitText={"Зарегистрироваться"}
+						error={error}
 					/>
 					<div className="register__footer">
 						<p className="register__text">Уже зарегистрированы?</p>

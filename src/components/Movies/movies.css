@@ -10,6 +10,19 @@
 	flex: 1;
 }
 
+.movies__text {
+	display: block;
+	color: red;
+	text-align: center;
+	font-size: 32px;
+}
+
+.movies__text_type_error {
+	font-size: 18px;
+	padding: 100px;
+	line-height: 40px;
+}
+
 .show-more__button {
 	width: 320px;
 	height: 36px;
@@ -34,5 +47,15 @@
 @media screen and (max-width: 500px) {
 	.show-more {
 		padding: 64px 0 122px;
+	}
+
+	.movies__text {
+		font-size: 24px;
+	}
+
+	.movies__text_type_error {
+		font-size: 12px;
+		padding: 40px;
+		line-height: 20px;
 	}
 }
